@@ -1,0 +1,62 @@
+.bio {
+  margin-top: 40px;
+  display: grid;
+  grid-template-areas:
+    "image name edit ."
+    "image description . add";
+
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.bio__image {
+  border-radius: 50%;
+
+  grid-area: image;
+  width: 168.75px;
+  height: auto;
+}
+
+.bio__name {
+  color: #fff;
+  font-family: Inter;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 48px; /* 114.286% */
+  grid-area: name;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  padding-left: 30px;
+  width: 373px;
+}
+.bio_description {
+  color: #fff;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  grid-area: description;
+  padding-top: 0px;
+  padding-left: 30px;
+  margin-top: 8px;
+}
+.bio__edit-button {
+  background: url("/images/edit-button.svg") no-repeat;
+  width: 24px;
+  height: 24px;
+  border: 0px;
+  grid-area: edit;
+  align-self: center;
+  margin-left: 18px;
+}
+.bio__add-button {
+  color: white;
+  height: 40px;
+  width: 100px;
+  border: 2px solid white;
+  background: none;
+  font-size: 20px;
+  margin-left: 165px;
+}
