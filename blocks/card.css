@@ -1,9 +1,10 @@
-.cards {
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  width: 300px;
-  height: 300px;
+.cards__list {
   display: grid;
+  grid-template-columns: repeat(auto-fit, 282px);
+  max-height: 742px;
+  grid-gap: 17px;
+  padding: 0px;
+  justify-content: center;
 }
 .card {
   width: 282px;
@@ -11,7 +12,22 @@
   border-radius: 10px;
   background: #fff;
 }
-.card__image:nth-of-type(1) {
+.card__image {
   width: 282px;
   height: 282px;
+  border-radius: 10px 10px 0px 0px;
+}
+.card__location {
+  margin-left: 25px;
+  display: inline;
+  margin-right: 0px;
+  margin-top: 25px;
+}
+.card__heart-icon {
+  background-image: url("/images/heart-icon.svg");
+  width: 21px;
+  height: 18px;
+  border: none;
+  margin-left: 34px;
+  margin-top: 25px;
 }
