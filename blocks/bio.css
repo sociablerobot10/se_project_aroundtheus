@@ -23,7 +23,7 @@
   font-size: 42px;
   font-style: normal;
   font-weight: 500;
-  line-height: 48px; /* 114.286% */
+  line-height: 1.14;
   grid-area: name;
   margin-bottom: 0px;
   padding-bottom: 0px;
@@ -59,4 +59,16 @@
   background: none;
   font-size: 20px;
   margin-left: 165px;
+}
+@media screen and (min-width: 800px) {
+  .bio {
+    margin-top: 40px;
+    display: grid;
+    grid-template-areas:
+      "image name edit ."
+      "image description . add";
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
 }

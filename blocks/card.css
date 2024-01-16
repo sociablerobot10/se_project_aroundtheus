@@ -24,10 +24,13 @@
   margin-top: 25px;
 }
 .card__heart-icon {
-  background-image: url("/images/heart-icon.svg");
+  background: url("/images/heart-icon.svg");
   width: 21px;
   height: 18px;
-  border: none;
-  margin-left: 34px;
+  border: 0px none;
+  margin-right: 30px;
   margin-top: 25px;
+}
+.card__heart-icon:hover {
+  opacity: 0.6;
 }
