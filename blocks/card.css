@@ -18,18 +18,24 @@
   border-radius: 10px 10px 0px 0px;
 }
 .card__location {
-  margin-left: 25px;
-  display: inline;
-  margin-right: 0px;
-  margin-top: 25px;
+  max-width: 221px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0px;
 }
+.card__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 15px 21px 31px;
+}
+
 .card__heart-icon {
   background: url("/images/heart-icon.svg");
   width: 21px;
   height: 18px;
   border: 0px none;
-  margin-right: 30px;
-  margin-top: 25px;
 }
 .card__heart-icon:hover {
   opacity: 0.6;
