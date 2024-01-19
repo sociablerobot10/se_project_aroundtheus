@@ -53,4 +53,8 @@
     width: 282px;
     height: 361px;
   }
+  .cards__list {
+    grid-gap: 20px;
+    margin-bottom: 67px;
+  }
 }
