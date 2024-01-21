@@ -1,10 +1,5 @@
 # Project 3: Around The U.S.
 
-## Overview
-
-* Introduction
-* Project Features
-* [Link to Project](# Project 3: Around The U.S.
 
 ## Overview
 
@@ -15,8 +10,7 @@
 
 ### Introduction
 
-**Triple Peaks Coffee Shop**
-This is a responsive webpage of a social media page.
+This is a responsive webpage of a user's social media profile.
 
 ### Project Features
 
@@ -32,4 +26,3 @@ https://sociablerobot10.github.io/se_project_aroundtheus/
 
 
 
-https://sociablerobot10.github.io/se_project_aroundtheus/
