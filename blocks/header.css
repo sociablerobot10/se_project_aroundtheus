@@ -3,6 +3,12 @@
   height: 33px;
   margin-top: 45px;
 }
+.header {
+  margin: 0 auto;
+  padding-bottom: 41px;
+  width: 90%;
+  border-bottom: 1px solid #545454;
+}
 @media screen and (max-width: 320px) {
   .header {
     margin-left: 27px;

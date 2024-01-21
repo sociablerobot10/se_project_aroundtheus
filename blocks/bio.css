@@ -1,7 +1,7 @@
 .bio {
   margin-top: 40px;
-
   display: flex;
+  justify-content: space-between;
 }
 
 .bio__image {
@@ -21,7 +21,7 @@
   font-size: 42px;
   font-style: normal;
   font-weight: 500;
-  line-height: 48px;
+  line-height: 1.1429;
   grid-area: name;
   margin-bottom: 0px;
 }
@@ -30,7 +30,6 @@
   grid-template-areas:
     "name edit"
     "description .";
-
   grid-template-columns: 3fr 0.1fr;
   grid-template-rows: 1fr 1fr;
   align-content: center;
@@ -68,8 +67,46 @@
   background: url("/images/add-button.png") no-repeat;
   margin-left: 10%;
 }
+.bio__add-button:hover,
+.bio__edit-button:hover {
+  opacity: 0.6;
+}
+@media screen and (max-width: 848px) {
+  .bio__name {
+    font-size: 30px;
+  }
+  .bio__add-button {
+    background-size: 125px;
+  }
+  .bio__image {
+    margin-right: 0px;
+    width: 100px;
+    height: 100px;
+  }
+}
+@media screen and (max-width: 686px) {
+  .bio__name {
+    font-size: 26px;
+  }
+  .bio__add-button {
+    background-size: 100px;
+  }
+}
+@media screen and (max-width: 646px) {
+  .bio__name {
+    font-size: 20px;
+  }
+  .bio__add-button {
+    background-size: 80px;
+  }
+  .bio__image {
+    margin-right: 0px;
+    width: 85px;
+    height: 85px;
+  }
+}
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 570px) {
   .bio__name {
     font-size: 22px;
   }
