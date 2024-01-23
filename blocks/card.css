@@ -1,13 +1,4 @@
-.cards__list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 282px);
-  grid-gap: 17px;
-  padding: 0px;
-  justify-content: center;
-}
 .card {
-  width: 282px;
-  height: 361px;
   border-radius: 10px;
   background: #fff;
 }
@@ -33,25 +24,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 15px 21px 31px;
+  margin: 25px 20px;
 }
 
 .card__heart-icon {
-  background: url("/images/heart-icon.svg");
+  background: url("../images/heart-icon.svg");
   width: 21px;
   height: 18px;
   border: 0px none;
 }
 .card__heart-icon:hover {
   opacity: 0.6;
-}
-@media screen and (max-width: 320px) {
-  .card {
-    width: 282px;
-    height: 361px;
-  }
-  .cards__list {
-    grid-gap: 20px;
-    margin-bottom: 67px;
-  }
 }

@@ -11,19 +11,6 @@
   padding: 0px 10px;
 }
 
-.page__copyright {
-  color: #545454;
-  font-family: "Inter", Arial, sans-serif;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-top: 67px;
-  margin-bottom: 60px;
-  padding-bottom: 0px;
-  padding-top: 0px;
-}
-
 @media screen and (max-width: 320px) {
   .page {
     margin: auto 0;
@@ -31,13 +18,6 @@
   .page__content {
     margin-left: 0;
     margin-right: 0;
-    padding-bottom: 60px;
-  }
-  .page__copyright {
-    position: relative;
-    margin-top: 48px;
-    margin-bottom: 36px;
-    padding-bottom: 0px;
-    padding-top: 0px;
+    padding: 0px;
   }
 }
