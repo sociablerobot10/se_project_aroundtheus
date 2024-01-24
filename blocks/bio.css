@@ -9,10 +9,6 @@
   height: 120px;
   flex-shrink: 0;
   border-radius: 50%;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 3.75px;
-  margin-bottom: 3.75px;
 }
 
 .bio__name {
@@ -28,6 +24,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: auto;
 }
 .bio__info {
   display: grid;
@@ -56,7 +53,7 @@
   overflow: hidden;
 }
 .bio__edit-button {
-  background: url("../images/edit-button.svg") no-repeat;
+  background: transparent url("../images/edit-button.svg") no-repeat;
   width: 24px;
   height: 24px;
   border: 0px;
@@ -73,7 +70,7 @@
   background: none;
   border: 2px solid white;
   align-self: center;
-  background: url("../images/add-button.svg") no-repeat;
+  background: transparent url("../images/add-button.svg") no-repeat;
   background-position: center;
   margin-left: auto;
   border-radius: 2px;
@@ -87,12 +84,6 @@
   .bio__name {
     font-size: 30px;
   }
-
-  .bio__image {
-    margin-right: 0px;
-    width: 100px;
-    height: 100px;
-  }
 }
 @media screen and (max-width: 686px) {
   .bio__name {
@@ -102,13 +93,6 @@
 @media screen and (max-width: 646px) {
   .bio__name {
     font-size: 20px;
-  }
-
-  .bio__image {
-    margin-right: 0px;
-    margin-left: 0px;
-    width: 85px;
-    height: 85px;
   }
 }
 
@@ -121,6 +105,9 @@
   .bio__info {
     grid-template-rows: none;
   }
+  .bio__image {
+    margin-bottom: 30px;
+  }
 
   .bio__name {
     max-width: 196px;
@@ -128,10 +115,7 @@
     flex-shrink: 0;
     color: #fff;
     text-align: center;
-    font-family: Inter;
     font-size: 22px;
-    font-style: normal;
-    font-weight: 500;
     line-height: normal;
     margin-bottom: 14px;
   }
@@ -150,25 +134,21 @@
 @media screen and (max-width: 320px) {
   .bio__name {
     max-width: 196px;
-    text-align: center;
-    font-family: Inter;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 500;
   }
   .bio__description {
     max-width: 282px;
     text-align: center;
     margin-top: 0px;
+    font-size: 14px;
   }
-  .bio__image {
-    margin-bottom: 26.25px;
-  }
+
   .bio__add-button {
     background-size: 16px;
   }
   .bio__edit-button {
     align-self: normal;
     background-size: 7.5px;
+    width: 18px;
+    height: 18px;
   }
 }

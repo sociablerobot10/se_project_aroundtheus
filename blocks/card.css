@@ -28,7 +28,7 @@
 }
 
 .card__heart-icon {
-  background: url("../images/heart-icon.svg");
+  background: transparent url("../images/heart-icon.svg") no-repeat;
   width: 21px;
   height: 18px;
   border: 0px none;
