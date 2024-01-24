@@ -24,7 +24,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: auto;
+  max-width: 373px;
 }
 .bio__info {
   display: grid;
@@ -51,6 +51,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 880px;
 }
 .bio__edit-button {
   background: transparent url("../images/edit-button.svg") no-repeat;
@@ -98,9 +99,7 @@
 
 @media screen and (max-width: 570px) {
   .bio {
-    display: flex;
     flex-direction: column;
-    align-items: center;
   }
   .bio__info {
     grid-template-rows: none;
@@ -111,7 +110,6 @@
 
   .bio__name {
     max-width: 196px;
-    height: 22px;
     flex-shrink: 0;
     color: #fff;
     text-align: center;
@@ -130,18 +128,21 @@
     margin-top: 0px;
     text-align: center;
   }
+  .bio__edit-button {
+    margin-bottom: 10px;
+  }
 }
 @media screen and (max-width: 320px) {
-  .bio__name {
-    max-width: 196px;
-  }
   .bio__description {
-    max-width: 282px;
+    max-width: 220px;
     text-align: center;
     margin-top: 0px;
     font-size: 14px;
   }
 
+  .bio__name {
+    max-width: 196px;
+  }
   .bio__add-button {
     background-size: 16px;
   }
@@ -150,5 +151,7 @@
     background-size: 7.5px;
     width: 18px;
     height: 18px;
+    line-height: 1.2104;
+    margin-top: 5px;
   }
 }
