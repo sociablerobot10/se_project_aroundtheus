@@ -1,17 +1,17 @@
-.header__logo {
-  width: 173px;
-  height: 33px;
-  margin-top: 45px;
-}
 .header {
   margin: 0 auto;
   padding-bottom: 40px;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
+.header__logo {
+  width: 173px;
+  height: 33px;
+  margin-top: 45px;
+}
 @media screen and (max-width: 320px) {
   .header {
     padding-left: 27px;
-    padding-bottom: 38.25px;
+    padding-bottom: 32px;
   }
   .header__logo {
     width: 126px;

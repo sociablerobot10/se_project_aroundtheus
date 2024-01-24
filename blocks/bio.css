@@ -24,7 +24,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 373px;
+  max-width: 380px;
 }
 .bio__info {
   display: grid;
