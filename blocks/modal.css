@@ -12,6 +12,9 @@
   align-items: center;
   z-index: 99;
 }
+.modal_opened {
+  display: flex;
+}
 .modal__container {
   display: flex;
   position: relative;
