@@ -55,7 +55,7 @@
 .modal__button {
   background-color: black;
   color: white;
-  width: 358px;
+  width: 95%;
   height: 50.152px;
   border-radius: 2px;
   color: #fff;
@@ -76,9 +76,40 @@
   fill: #fff;
   position: absolute;
   top: -48px;
-  right: -48px;
+  right: -40px;
   border: none;
   background-position: center;
+}
+
+@media screen and (max-width: 520px) {
+  .modal__close {
+    width: 25px;
+    height: 25px;
+  }
+  .modal__container {
+    width: 370px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .modal__container {
+    width: 340px;
+  }
+}
+@media screen and (max-width: 433px) {
+  .modal__container {
+    width: 300px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .modal__container {
+    width: 285px;
+  }
+  .modal__close {
+    width: 28px;
+    height: 28px;
+    right: -5px;
+    top: -50px;
 }
 @media screen and (max-width: 320px) {
   .modal__container {
@@ -98,8 +129,7 @@
   .modal__close {
     width: 26px;
     height: 26px;
-    right: -245px;
-    top: -50px;
+
   }
   .modal__button {
     width: 238px;
