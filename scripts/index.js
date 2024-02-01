@@ -27,6 +27,21 @@ const initialCards = [
 let closeButton = document.querySelector(".modal__close");
 let modalElement = document.querySelector(".modal_opened");
 let editButton = document.querySelector(".bio__edit-button");
+let saveButton = document.querySelector(".modal__button");
+let nameInputField = document.querySelector(".modal__input-name");
+let descriptionInputField = document.querySelector(".modal__input-description");
+let bioNameField = document.querySelector(".bio__name");
+let bioDescriptionField = document.querySelector(".bio__description");
+nameInputField.value = "Jacques Cousteau";
+descriptionInputField.value = "Explorer";
+
+saveButton.addEventListener("click", function (e) {
+  bioNameField.innerText = nameInputField.value;
+  bioDescriptionField.innerText = descriptionInputField.value;
+  e.preventDefault();
+  modalElement.setAttribute("style", "display: none");
+});
+
 closeButton.addEventListener("click", function () {
   modalElement.setAttribute("style", "display: none");
 });
