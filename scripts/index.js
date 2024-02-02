@@ -53,11 +53,7 @@ closeButton.addEventListener("click", closeModal);
 editButton.addEventListener("click", function () {
   modalElement.setAttribute("style", "display: flex");
 });
-let cardElementTitle = document.querySelector(".card__location");
-let cardElementImage = document.querySelector(".card__image");
-let cardElement = cardTemplate.cloneNode(true);
 
-console.log;
 function getCardElement(data) {
   let cardElementTitle = document.querySelector(".card__location");
   let cardElementImage = document.querySelector(".card__image");
