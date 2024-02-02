@@ -27,7 +27,6 @@ const initialCards = [
 
 let cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
-
 let closeButton = document.querySelector(".modal__close");
 let modalElement = document.querySelector(".modal_opened");
 let editButton = document.querySelector(".bio__edit-button");
@@ -38,6 +37,7 @@ let bioNameField = document.querySelector(".bio__name");
 let bioDescriptionField = document.querySelector(".bio__description");
 nameInputField.value = "Jacques Cousteau";
 descriptionInputField.value = "Explorer";
+let cardList = document.querySelector(".cards__list");
 
 function closeModal() {
   modalElement.setAttribute("style", "display: none");
@@ -55,17 +55,13 @@ editButton.addEventListener("click", function () {
 });
 
 function getCardElement(data) {
-  let cardElementTitle = document.querySelector(".card__location");
-  let cardElementImage = document.querySelector(".card__image");
-  let cardElement = cardTemplate.cloneNode(true);
-  console.log(cardElementTitle);
+  for (card of data) {
+    let cardElement = cardTemplate.cloneNode(true);
+    let cardElementTitle = cardElement.querySelector(".card__location");
+    let cardElementImage = cardElement.querySelector(".card__image");
+    cardElementImage.src = card.link;
+    cardElementTitle.textContent = card.name;
+    cardList.append(cardElement);
+  }
 }
 getCardElement(initialCards);
-/*Declare a getCardElement() function with one parameter named data. You’ll be passing objects of the array to it. The function should:
-
-     clone the template element with all its content and store it in a cardElement variable
-    access the card title and image and store them in variables
-    set the path to the image to the link field of the object
-    set the image alt text to the name field of the object
-    set the card title to the name field of the object, too
-    return the ready HTML element with the filled-in data */
