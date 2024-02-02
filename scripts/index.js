@@ -60,6 +60,7 @@ function getCardElement(data) {
     let cardElementTitle = cardElement.querySelector(".card__location");
     let cardElementImage = cardElement.querySelector(".card__image");
     cardElementImage.src = card.link;
+    cardElementImage.alt = card.name;
     cardElementTitle.textContent = card.name;
     cardList.append(cardElement);
   }
