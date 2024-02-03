@@ -52,11 +52,13 @@
   color: black;
   border-color: rgba(0, 0, 0, 0.2);
   padding-bottom: 13px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .modal__button {
   background-color: black;
   color: white;
-  width: 95%;
+  width: 90%;
   height: 50.152px;
   border-radius: 2px;
   color: #fff;
@@ -106,13 +108,8 @@
     top: -50px;
   }
   .modal__button {
-    width: 238px;
     height: 46px;
     margin-top: 45px;
-  }
-}
-@media screen and (max-width: 320px) {
-  .modal__button {
     font-size: 14px;
   }
 }
