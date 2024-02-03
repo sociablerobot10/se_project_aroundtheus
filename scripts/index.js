@@ -28,21 +28,21 @@ const initialCards = [
 let cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 let closeButton = document.querySelector(".modal__close");
-let modalElement = document.querySelector(".modal_opened");
+let modalElement = document.querySelector("#edit-modal");
 let editButton = document.querySelector(".bio__edit-button");
 let saveButton = document.querySelector(".modal__button");
 let nameInputField = document.querySelector(".modal__input-name");
 let descriptionInputField = document.querySelector(".modal__input-description");
 let bioNameField = document.querySelector(".bio__name");
 let bioDescriptionField = document.querySelector(".bio__description");
-nameInputField.value = "Jacques Cousteau";
-descriptionInputField.value = "Explorer";
+nameInputField.value = bioNameField.innerText;
+descriptionInputField.value = bioDescriptionField.innerText;
 let cardList = document.querySelector(".cards__list");
 
 function closeModal() {
-  modalElement.setAttribute("style", "display: none");
+  modalElement.classList.remove("modal_opened");
 }
-saveButton.addEventListener("click", function (e) {
+saveButton.addEventListener("submit", function () {
   bioNameField.innerText = nameInputField.value;
   bioDescriptionField.innerText = descriptionInputField.value;
   closeModal();
@@ -50,10 +50,12 @@ saveButton.addEventListener("click", function (e) {
 });
 
 closeButton.addEventListener("click", closeModal);
-editButton.addEventListener("click", function () {
-  modalElement.setAttribute("style", "display: flex");
-});
 
+editButton.addEventListener("click", function () {
+  modalElement.classList.add("modal_opened");
+  e.preventDefault();
+});
+/*
 function getCardElement(data) {
   for (card of data) {
     let cardElement = cardTemplate.cloneNode(true);
@@ -65,4 +67,6 @@ function getCardElement(data) {
     cardList.append(cardElement);
   }
 }
+
 getCardElement(initialCards);
+function createCard */
