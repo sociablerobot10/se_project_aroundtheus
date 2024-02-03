@@ -55,18 +55,20 @@ closeButton.addEventListener("click", closeModal);
 editButton.addEventListener("click", function () {
   modalElement.classList.add("modal_opened");
 });
-/*
-function getCardElement(data) {
-  for (card of data) {
-    let cardElement = cardTemplate.cloneNode(true);
-    let cardElementTitle = cardElement.querySelector(".card__location");
-    let cardElementImage = cardElement.querySelector(".card__image");
-    cardElementImage.src = card.link;
-    cardElementImage.alt = card.name;
-    cardElementTitle.textContent = card.name;
-    cardList.append(cardElement);
-  }
-}
 
-getCardElement(initialCards);
-function createCard */
+function createCard(data) {
+  let cardElement = cardTemplate.cloneNode(true);
+  let cardElementTitle = cardElement.querySelector(".card__location");
+  let cardElementImage = cardElement.querySelector(".card__image");
+  cardElementImage.src = data.link;
+  cardElementImage.alt = data.name;
+  cardElementTitle.textContent = data.name;
+  return cardElement;
+}
+function addCardToPage(cardElement) {
+  cardList.append(cardElement);
+}
+for (data of initialCards) {
+  let cardEl = createCard(data);
+  cardList.append(cardEl);
+}
