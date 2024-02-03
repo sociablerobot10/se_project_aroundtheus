@@ -43,10 +43,10 @@ function closeModal() {
   modalElement.classList.remove("modal_opened");
 }
 saveButton.addEventListener("submit", function (e) {
+  e.preventDefault();
   bioNameField.innerText = nameInputField.value;
   bioDescriptionField.innerText = descriptionInputField.value;
   closeModal();
-  e.preventDefault();
 });
 
 closeButton.addEventListener("click", closeModal);
