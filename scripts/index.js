@@ -31,6 +31,7 @@ let closeButton = document.querySelector(".modal__close");
 let modalElement = document.querySelector("#edit-modal");
 let editButton = document.querySelector(".bio__edit-button");
 let saveButton = document.querySelector(".modal__button");
+let formElement = document.querySelector(".modal__form");
 let nameInputField = document.querySelector(".modal__input-name");
 let descriptionInputField = document.querySelector(".modal__input-description");
 let bioNameField = document.querySelector(".bio__name");
@@ -42,7 +43,7 @@ let cardList = document.querySelector(".cards__list");
 function closeModal() {
   modalElement.classList.remove("modal_opened");
 }
-saveButton.addEventListener("submit", function (e) {
+formElement.addEventListener("submit", function (e) {
   e.preventDefault();
   bioNameField.innerText = nameInputField.value;
   bioDescriptionField.innerText = descriptionInputField.value;
