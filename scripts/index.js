@@ -42,7 +42,7 @@ let cardList = document.querySelector(".cards__list");
 function closeModal() {
   modalElement.classList.remove("modal_opened");
 }
-saveButton.addEventListener("submit", function () {
+saveButton.addEventListener("submit", function (e) {
   bioNameField.innerText = nameInputField.value;
   bioDescriptionField.innerText = descriptionInputField.value;
   closeModal();
@@ -53,7 +53,6 @@ closeButton.addEventListener("click", closeModal);
 
 editButton.addEventListener("click", function () {
   modalElement.classList.add("modal_opened");
-  e.preventDefault();
 });
 /*
 function getCardElement(data) {
