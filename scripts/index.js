@@ -65,9 +65,7 @@ function createCard(data) {
   cardElementTitle.textContent = data.name;
   return cardElement;
 }
-function addCardToPage(cardElement) {
-  cardList.append(cardElement);
-}
+
 for (data of initialCards) {
   let cardEl = createCard(data);
   cardList.append(cardEl);
