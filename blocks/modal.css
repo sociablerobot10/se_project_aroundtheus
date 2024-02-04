@@ -113,5 +113,10 @@
     height: 46px;
     margin-top: 45px;
     font-size: 14px;
+    width: 238px;
+  }
+  .modal__input-name,
+  .modal__input-description {
+    width: 238px;
   }
 }
