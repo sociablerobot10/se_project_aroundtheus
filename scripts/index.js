@@ -36,8 +36,6 @@ let nameInputField = document.querySelector(".modal__input-name");
 let descriptionInputField = document.querySelector(".modal__input-description");
 let bioNameField = document.querySelector(".bio__name");
 let bioDescriptionField = document.querySelector(".bio__description");
-nameInputField.value = bioNameField.innerText;
-descriptionInputField.value = bioDescriptionField.innerText;
 let cardList = document.querySelector(".cards__list");
 
 function closeModal() {
@@ -53,6 +51,8 @@ formElement.addEventListener("submit", function (e) {
 closeButton.addEventListener("click", closeModal);
 
 editButton.addEventListener("click", function () {
+  nameInputField.value = bioNameField.innerText;
+  descriptionInputField.value = bioDescriptionField.innerText;
   modalElement.classList.add("modal_opened");
 });
 

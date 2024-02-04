@@ -34,11 +34,11 @@
   font-style: normal;
   font-weight: 900;
   line-height: normal;
-  margin-left: 22px;
+  margin-left: 36px;
 }
 .modal__form {
-  margin-left: 22px;
-  margin-right: 22px;
+  margin-left: 36px;
+  margin-right: 36px;
 }
 .modal__input-name {
   margin-bottom: 30px;
@@ -53,7 +53,7 @@
   color: black;
   border-color: rgba(0, 0, 0, 0.2);
   padding-bottom: 13px;
-  width: 100%;
+  width: 358px;
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -71,7 +71,7 @@
   font-weight: 400;
   line-height: normal;
   margin-bottom: 36px;
-  width: 100%;
+  width: 358px;
   margin-top: 48px;
 }
 .modal__close {
