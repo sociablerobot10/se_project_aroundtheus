@@ -28,8 +28,10 @@ const initialCards = [
 let cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 let closeButton = document.querySelector(".modal__close");
-let modalElement = document.querySelector("#edit-modal");
+let editModalElement = document.querySelector("#edit-modal");
+let addModalElement = document.querySelector("#add-modal");
 let editButton = document.querySelector(".bio__edit-button");
+let addButton = document.querySelector(".bio__add-button");
 let saveButton = document.querySelector(".modal__button");
 let formElement = document.querySelector(".modal__form");
 let nameInputField = document.querySelector(".modal__input-name");
@@ -53,7 +55,10 @@ closeButton.addEventListener("click", closeModal);
 editButton.addEventListener("click", function () {
   nameInputField.value = bioNameField.innerText;
   descriptionInputField.value = bioDescriptionField.innerText;
-  modalElement.classList.add("modal_opened");
+  editModalElement.classList.add("modal_opened");
+});
+addButton.addEventListener("click", function () {
+  addModalElement.classList.add("modal_opened");
 });
 
 function createCard(data) {
@@ -66,7 +71,12 @@ function createCard(data) {
   return cardElement;
 }
 
-for (data of initialCards) {
+/* for (data of initialCards) {
   let cardEl = createCard(data);
   cardList.append(cardEl);
-}
+} */
+
+initialCards.forEach(function (data) {
+  let cardEl = createCard(data);
+  cardList.append(cardEl);
+});
