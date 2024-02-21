@@ -39,25 +39,44 @@ let descriptionInputField = document.querySelector(".modal__input-description");
 let bioNameField = document.querySelector(".bio__name");
 let bioDescriptionField = document.querySelector(".bio__description");
 let cardList = document.querySelector(".cards__list");
-
-function closeModal() {
-  modalElement.classList.remove("modal_opened");
+let addCloseButton = addModalElement.querySelector("button");
+let editCloseButton = editModalElement.querySelector("button");
+console.log(editCloseButton);
+let editFormElement = editModalElement.querySelector(".modal__form");
+let addFormElement = addModalElement.querySelector(".modal__form");
+console.log("addCloseButton", addCloseButton);
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
 }
-formElement.addEventListener("submit", function (e) {
+/*formElement.addEventListener("submit", function (e) {
   e.preventDefault();
   bioNameField.innerText = nameInputField.value;
   bioDescriptionField.innerText = descriptionInputField.value;
   closeModal();
+}); */
+editFormElement.addEventListener("submit", function (e) {
+  e.preventDefault();
+  bioNameField.innerText = nameInputField.value;
+  bioDescriptionField.innerText = descriptionInputField.value;
+  closeModal(editModalElement);
 });
-
-closeButton.addEventListener("click", closeModal);
-
+addFormElement.addEventListener("submit", function (e) {
+  e.preventDefault();
+  closeModal(addModalElement);
+});
+editCloseButton.addEventListener("click", function () {
+  closeModal(editModalElement);
+});
+addCloseButton.addEventListener("click", function () {
+  closeModal(addModalElement);
+});
 editButton.addEventListener("click", function () {
   nameInputField.value = bioNameField.innerText;
   descriptionInputField.value = bioDescriptionField.innerText;
   editModalElement.classList.add("modal_opened");
 });
 addButton.addEventListener("click", function () {
+  console.log("open");
   addModalElement.classList.add("modal_opened");
 });
 
