@@ -78,13 +78,6 @@ editButton.addEventListener("click", function () {
   descriptionInputField.value = bioDescriptionField.innerText;
   editModalElement.classList.add("modal_opened");
 });
-addButton.addEventListener("click", function () {
-  console.log("open");
-  let name = nameInputField.value;
-  let link = descriptionInputField.value;
-  //initialCards.shift(name, link);
-  addModalElement.classList.add("modal_opened");
-});
 
 function createCard(data) {
   let cardElement = cardTemplate.cloneNode(true);
@@ -104,4 +97,12 @@ function createCard(data) {
 initialCards.forEach(function (data) {
   let cardEl = createCard(data);
   cardList.append(cardEl);
+});
+addButton.addEventListener("click", function () {
+  let nameOfPlace = titleInputFieldInputField.value;
+  let url = linkInputFieldInputField.value;
+  let createdCard = { name: nameOfPlace, link: url };
+  initialCards.unshift(createdCard);
+  console.log(initialCards);
+  addModalElement.classList.add("modal_opened");
 });
