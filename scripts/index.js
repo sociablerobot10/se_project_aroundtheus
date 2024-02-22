@@ -64,7 +64,11 @@ editFormElement.addEventListener("submit", function (e) {
 });
 addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
-
+  let nameOfPlace = titleInputFieldInputField.value;
+  let url = linkInputFieldInputField.value;
+  let createdCard = { name: nameOfPlace, link: url };
+  initialCards.unshift(createdCard);
+  console.log(initialCards);
   closeModal(addModalElement);
 });
 editCloseButton.addEventListener("click", function () {
@@ -98,11 +102,7 @@ initialCards.forEach(function (data) {
   let cardEl = createCard(data);
   cardList.append(cardEl);
 });
+
 addButton.addEventListener("click", function () {
-  let nameOfPlace = titleInputFieldInputField.value;
-  let url = linkInputFieldInputField.value;
-  let createdCard = { name: nameOfPlace, link: url };
-  initialCards.unshift(createdCard);
-  console.log(initialCards);
   addModalElement.classList.add("modal_opened");
 });
