@@ -64,8 +64,9 @@ editFormElement.addEventListener("submit", function (e) {
 });
 addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
-  let nameOfPlace = titleInputFieldInputField.value;
-  let url = linkInputFieldInputField.value;
+  console.log("hi");
+  let nameOfPlace = titleInputField.value;
+  let url = linkInputField.value;
   let createdCard = { name: nameOfPlace, link: url };
   initialCards.unshift(createdCard);
   console.log(initialCards);
