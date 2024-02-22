@@ -45,6 +45,7 @@
 }
 
 .modal__input-name,
+.modal__input-title,
 .modal__input-description {
   border-top: none;
   border-right: none;

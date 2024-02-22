@@ -36,6 +36,8 @@ let saveButton = document.querySelector(".modal__button");
 let formElement = document.querySelector(".modal__form");
 let nameInputField = document.querySelector(".modal__input-name");
 let descriptionInputField = document.querySelector(".modal__input-description");
+let titleInputField = document.querySelector(".modal__input-title");
+let linkInputField = document.querySelector(".modal__input-description");
 let bioNameField = document.querySelector(".bio__name");
 let bioDescriptionField = document.querySelector(".bio__description");
 let cardList = document.querySelector(".cards__list");
@@ -62,6 +64,7 @@ editFormElement.addEventListener("submit", function (e) {
 });
 addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
+
   closeModal(addModalElement);
 });
 editCloseButton.addEventListener("click", function () {
@@ -77,6 +80,9 @@ editButton.addEventListener("click", function () {
 });
 addButton.addEventListener("click", function () {
   console.log("open");
+  let name = nameInputField.value;
+  let link = descriptionInputField.value;
+  //initialCards.shift(name, link);
   addModalElement.classList.add("modal_opened");
 });
 
