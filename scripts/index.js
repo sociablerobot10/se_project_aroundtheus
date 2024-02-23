@@ -37,16 +37,15 @@ let formElement = document.querySelector(".modal__form");
 let nameInputField = document.querySelector(".modal__input-name");
 let descriptionInputField = document.querySelector(".modal__input-description");
 let titleInputField = document.querySelector(".modal__input-title");
-let linkInputField = document.querySelector(".modal__input-description");
+let linkInputField = document.querySelector(".modal__input-link");
 let bioNameField = document.querySelector(".bio__name");
 let bioDescriptionField = document.querySelector(".bio__description");
 let cardList = document.querySelector(".cards__list");
 let addCloseButton = addModalElement.querySelector("button");
 let editCloseButton = editModalElement.querySelector("button");
-console.log(editCloseButton);
 let editFormElement = editModalElement.querySelector(".modal__form");
 let addFormElement = addModalElement.querySelector(".modal__form");
-console.log("addCloseButton", addCloseButton);
+
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
@@ -64,13 +63,14 @@ editFormElement.addEventListener("submit", function (e) {
 });
 addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
-  console.log("hi");
   let nameOfPlace = titleInputField.value;
   let url = linkInputField.value;
   let createdCard = { name: nameOfPlace, link: url };
   initialCards.unshift(createdCard);
-  console.log(initialCards);
   closeModal(addModalElement);
+  let newCard = initialCards[0];
+  let cardEl = createCard(newCard);
+  cardList.prepend(cardEl);
 });
 editCloseButton.addEventListener("click", function () {
   closeModal(editModalElement);
@@ -106,4 +106,11 @@ initialCards.forEach(function (data) {
 
 addButton.addEventListener("click", function () {
   addModalElement.classList.add("modal_opened");
+});
+
+let likeButtons = document.querySelectorAll(".card__heart-icon");
+likeButtons.forEach((likeBtn) => {
+  likeBtn.addEventListener("click", () => {
+    likeBtn.classList.toggle("card__heart-icon_active");
+  });
 });

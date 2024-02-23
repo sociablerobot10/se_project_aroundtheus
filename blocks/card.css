@@ -1,6 +1,7 @@
 .card {
   border-radius: 10px;
   background: #fff;
+  position: relative;
 }
 .card__image {
   width: 282px;
@@ -33,7 +34,20 @@
   height: 18px;
   border: 0px none;
 }
+
 .card__heart-icon:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+.card__heart-icon_active {
+  background: transparent url("../images/active-like.png") no-repeat;
+}
+.card__trash-icon {
+  background: transparent url("../images/Trash.svg") no-repeat;
+  width: 18px;
+  height: 19.3px;
+  position: absolute;
+  top: 18px;
+  left: 249px;
+  border: none;
 }
