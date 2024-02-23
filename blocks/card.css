@@ -51,3 +51,6 @@
   left: 249px;
   border: none;
 }
+.card__trash-icon:hover {
+  background: transparent url("../images/trash-hover.svg") no-repeat;
+}

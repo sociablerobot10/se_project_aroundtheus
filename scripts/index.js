@@ -114,3 +114,12 @@ likeButtons.forEach((likeBtn) => {
     likeBtn.classList.toggle("card__heart-icon_active");
   });
 });
+let trashIcons = document.querySelectorAll(".card__trash-icon");
+trashIcons.forEach((trashIcon) => {
+  trashIcon.addEventListener("click", function (e) {
+    e.preventDefault();
+    let currentTrashIcon = e.target;
+    console.log(currentTrashIcon);
+    currentTrashIcon.closest(".card").remove();
+  });
+});
