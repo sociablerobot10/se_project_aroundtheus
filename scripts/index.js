@@ -30,6 +30,7 @@ let cardTemplate =
 let closeButton = document.querySelector(".modal__close");
 let editModalElement = document.querySelector("#edit-modal");
 let addModalElement = document.querySelector("#add-modal");
+let imageModalElement = document.querySelector("#image-modal");
 let editButton = document.querySelector(".bio__edit-button");
 let addButton = document.querySelector(".bio__add-button");
 let saveButton = document.querySelector(".modal__button");
@@ -45,7 +46,8 @@ let addCloseButton = addModalElement.querySelector("button");
 let editCloseButton = editModalElement.querySelector("button");
 let editFormElement = editModalElement.querySelector(".modal__form");
 let addFormElement = addModalElement.querySelector(".modal__form");
-
+let imageCloseButton = imageModalElement.querySelector(".modal__close");
+console.log(imageCloseButton);
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
@@ -122,4 +124,19 @@ trashIcons.forEach((trashIcon) => {
     console.log(currentTrashIcon);
     currentTrashIcon.closest(".card").remove();
   });
+});
+let cardImages = document.querySelectorAll(".card__image");
+let fullCard = document.querySelector(".modal__full-img");
+let cardLocation = document.querySelector(".modal__location");
+console.log(cardLocation);
+cardImages.forEach((cardImage) => {
+  cardImage.addEventListener("click", (e) => {
+    imageModalElement.classList.add("modal_opened");
+    fullCard.src = e.target.src;
+    cardLocation.innerText = e.target.innerText;
+    fullCard.console.log(imageModalElement.src);
+  });
+});
+imageCloseButton.addEventListener("click", () => {
+  closeModal(imageModalElement);
 });
