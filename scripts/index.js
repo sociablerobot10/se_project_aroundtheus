@@ -133,8 +133,8 @@ cardImages.forEach((cardImage) => {
   cardImage.addEventListener("click", (e) => {
     imageModalElement.classList.add("modal_opened");
     fullCard.src = e.target.src;
-    cardLocation.innerText = e.target.innerText;
-    fullCard.console.log(imageModalElement.src);
+    cardLocation.innerText = e.target.alt;
+    console.log(cardLocation.innerText);
   });
 });
 imageCloseButton.addEventListener("click", () => {

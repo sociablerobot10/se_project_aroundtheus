@@ -100,6 +100,15 @@
   box-shadow: none;
 }
 
+.modal__location {
+  color: #ffffff;
+  position: absolute;
+  top: calc(100% + 10px);
+  margin: 0;
+  font-weight: 400;
+  font-size: 12px;
+}
+
 @media screen and (max-width: 520px) {
   .modal__container {
     width: 282px;
