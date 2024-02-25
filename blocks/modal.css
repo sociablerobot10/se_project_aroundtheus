@@ -46,7 +46,8 @@
   margin-left: 36px;
   margin-right: 36px;
 }
-.modal__input-name {
+.modal__input-name,
+.modal__input-title {
   margin-bottom: 30px;
 }
 
