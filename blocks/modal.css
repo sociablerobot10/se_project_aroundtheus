@@ -11,9 +11,15 @@
   justify-content: center;
   align-items: center;
   z-index: 99;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
 }
 .modal_opened {
   display: flex;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
 
 .modal__container {
@@ -89,7 +95,8 @@
   background-position: center;
 }
 .modal__full-img {
-  object-fit: contain;
+  object-fit: cover;
+  max-width: 100%;
 }
 .modal__container_type_image {
   max-width: 75vw;
