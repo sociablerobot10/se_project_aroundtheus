@@ -48,8 +48,7 @@
   margin-left: 36px;
   margin-right: 36px;
 }
-.modal__input-name,
-.modal__input-title {
+.modal__input:first-of-type {
   margin-bottom: 30px;
 }
 
@@ -83,6 +82,7 @@
 }
 .modal__button:hover {
   cursor: pointer;
+  opacity: 0.6;
 }
 .modal__close {
   background: transparent url("../images/close-button.svg") no-repeat;
@@ -98,6 +98,7 @@
 }
 .modal__close:hover {
   cursor: pointer;
+  opacity: 0.6;
 }
 .modal__full-img {
   object-fit: cover;
