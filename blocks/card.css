@@ -8,6 +8,9 @@
   height: 282px;
   border-radius: 10px 10px 0px 0px;
 }
+.card__image:hover {
+  cursor: pointer;
+}
 .card__location {
   max-width: 221px;
   text-overflow: ellipsis;
@@ -53,4 +56,5 @@
 }
 .card__trash-icon:hover {
   background: transparent url("../images/trash-hover.svg") no-repeat;
+  cursor: pointer;
 }
