@@ -67,14 +67,13 @@ editFormElement.addEventListener("submit", function (e) {
 });
 addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
-  let nameOfPlace = titleInputField.value;
-  let url = linkInputField.value;
+  const nameOfPlace = titleInputField.value;
+  const url = linkInputField.value;
   let createdCard = { name: nameOfPlace, link: url };
-  initialCards.unshift(createdCard);
+  const newCard = createCard(createdCard);
+  cardList.prepend(newCard);
+  console.log(cardList);
   closeModal(addModalElement);
-  let newCard = initialCards[0];
-  let cardEl = createCard(newCard);
-  cardList.prepend(cardEl);
 });
 editCloseButton.addEventListener("click", function () {
   closeModal(editModalElement);
@@ -89,12 +88,22 @@ editProfileButton.addEventListener("click", function () {
 });
 
 function createCard(data) {
-  let cardElement = cardTemplate.cloneNode(true);
-  let cardElementTitle = cardElement.querySelector(".card__location");
-  let cardElementImage = cardElement.querySelector(".card__image");
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardElementTitle = cardElement.querySelector(".card__location");
+  const cardElementImage = cardElement.querySelector(".card__image");
   cardElementImage.src = data.link;
   cardElementImage.alt = data.name;
   cardElementTitle.textContent = data.name;
+  const likeBtn = cardElement.querySelector(".card__heart-icon");
+  const trashIcon = cardElement.querySelector(".card__trash-icon");
+  likeBtn.addEventListener("click", () => {
+    likeBtn.classList.toggle("card__heart-icon_active");
+  });
+  trashIcon.addEventListener("click", function (e) {
+    e.preventDefault();
+    const currentTrashIcon = e.target;
+    currentTrashIcon.closest(".card").remove();
+  });
   return cardElement;
 }
 
@@ -107,31 +116,15 @@ addProfileButton.addEventListener("click", function () {
   openModal(addModalElement);
 });
 
-let likeButtons = document.querySelectorAll(".card__heart-icon");
-likeButtons.forEach((likeBtn) => {
-  likeBtn.addEventListener("click", () => {
-    likeBtn.classList.toggle("card__heart-icon_active");
-  });
-});
-let trashIcons = document.querySelectorAll(".card__trash-icon");
-trashIcons.forEach((trashIcon) => {
-  trashIcon.addEventListener("click", function (e) {
-    e.preventDefault();
-    let currentTrashIcon = e.target;
-    console.log(currentTrashIcon);
-    currentTrashIcon.closest(".card").remove();
-  });
-});
 const cardImages = document.querySelectorAll(".card__image");
 const fullCard = document.querySelector(".modal__full-img");
 const cardLocation = document.querySelector(".modal__location");
-console.log(cardLocation);
 cardImages.forEach((cardImage) => {
   cardImage.addEventListener("click", (e) => {
     openModal(imageModalElement);
     fullCard.src = e.target.src;
     cardLocation.innerText = e.target.alt;
-    console.log(cardLocation.innerText);
+    cardElementImage.alt = e.target.alt;
   });
 });
 imageCloseButton.addEventListener("click", () => {
