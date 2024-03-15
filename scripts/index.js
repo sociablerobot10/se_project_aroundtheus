@@ -67,6 +67,8 @@ editFormElement.addEventListener("submit", function (e) {
 });
 addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
+  submitButton.classList.remove(options.inactiveButtonClass);
+  submitButton.disabled = false;
   const nameOfPlace = titleInputField.value;
   const url = linkInputField.value;
   const createdCard = { name: nameOfPlace, link: url };
@@ -135,3 +137,17 @@ addProfileButton.addEventListener("click", function () {
 imageCloseButton.addEventListener("click", () => {
   closeModal(imageModalElement);
 });
+
+document.addEventListener("keydown", function (event) {
+  closeButton(event, addModalElement);
+  closeButton(event, editModalElement);
+});
+
+function closeButton(event, modalEl) {
+  if (
+    (event.key === "Escape" || event.code === "Escape") &&
+    modalEl.classList.contains("modal_opened")
+  ) {
+    closeModal(modalEl);
+  }
+}

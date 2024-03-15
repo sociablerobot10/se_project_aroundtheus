@@ -3,13 +3,13 @@ const showInputError = function (formEl, inputEl, options) {
   inputEl.classList.add(options.inputErrorClass);
 
   errorEl.textContent = inputEl.validationMessage;
-  errorEl.classlist.add(options.errorClass);
+  errorEl.classList.add(options.errorClass);
 };
 const hideInputError = function (formEl, inputEl, options) {
   let errorEl = formEl.querySelector(`#${inputEl.id}-error`);
   inputEl.classList.remove(options.inputErrorClass);
   errorEl.textContent = " ";
-  errorEl.classlist.remove(options.errorClass);
+  errorEl.classList.remove(options.errorClass);
 };
 
 const checkInputValidity = function (formEl, inputEl, options) {
@@ -38,7 +38,7 @@ const toggleButtonState = function (inputEls, submitButton, options) {
 };
 
 const setEventListeners = function (formEl, options) {
-  const inputEls = Array.from(document.querySelectorAll(options.inputSelector));
+  const inputEls = Array.from(formEl.querySelectorAll(options.inputSelector));
   const submitButton = formEl.querySelector(".modal__button");
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (e) => {

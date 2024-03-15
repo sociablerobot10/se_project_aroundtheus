@@ -142,7 +142,6 @@
 }
 .modal__button_disabled {
   opacity: 20%;
-  background: red;
 }
 
 @media screen and (max-width: 520px) {
