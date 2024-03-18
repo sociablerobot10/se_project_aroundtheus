@@ -68,8 +68,6 @@ editFormElement.addEventListener("submit", function (e) {
 });
 addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
-  submitButton.classList.remove(options.inactiveButtonClass);
-  submitButton.disabled = false;
   const nameOfPlace = titleInputField.value;
   const url = linkInputField.value;
   const createdCard = { name: nameOfPlace, link: url };
