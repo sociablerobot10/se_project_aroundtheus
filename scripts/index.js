@@ -46,6 +46,7 @@ const editCloseButton = editModalElement.querySelector("button");
 const editFormElement = editModalElement.querySelector(".modal__form");
 const addFormElement = addModalElement.querySelector(".modal__form");
 const imageCloseButton = imageModalElement.querySelector(".modal__close");
+const modal = document.querySelector("modal");
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
@@ -139,11 +140,12 @@ imageCloseButton.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", function (event) {
-  closeButton(event, addModalElement);
-  closeButton(event, editModalElement);
+  closeWithEscapeKey(event, addModalElement);
+  closeWithEscapeKey(event, editModalElement);
+  closeWithEscapeKey(event, imageModalElement);
 });
-
-function closeButton(event, modalEl) {
+console.log(imageModalElement.classList);
+function closeWithEscapeKey(event, modalEl) {
   if (
     (event.key === "Escape" || event.code === "Escape") &&
     modalEl.classList.contains("modal_opened")
@@ -151,3 +153,11 @@ function closeButton(event, modalEl) {
     closeModal(modalEl);
   }
 }
+function closeWithClick(event) {
+  if (event.target.classList.contains("modal")) {
+    closeModal(event.target);
+  }
+}
+document.addEventListener("click", function (event) {
+  closeWithClick(event);
+});
