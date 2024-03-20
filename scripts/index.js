@@ -46,13 +46,14 @@ const editCloseButton = editModalElement.querySelector("button");
 const editFormElement = editModalElement.querySelector(".modal__form");
 const addFormElement = addModalElement.querySelector(".modal__form");
 const imageCloseButton = imageModalElement.querySelector(".modal__close");
-const modal = document.querySelector("modal");
+const openedPopUp = "";
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  const openedPopUp = document.querySelector(".modal_opened");
 }
 /*formElement.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -73,6 +74,8 @@ addFormElement.addEventListener("submit", function (e) {
   const createdCard = { name: nameOfPlace, link: url };
   const newCard = createCard(createdCard);
   cardList.prepend(newCard);
+  titleInputField.value = "";
+  linkInputField.value = "";
   closeModal(addModalElement);
 });
 editCloseButton.addEventListener("click", function () {
@@ -104,10 +107,10 @@ function createCard(data) {
     const currentTrashIcon = e.target;
     currentTrashIcon.closest(".card").remove();
   });
-  const cardImage = cardElement.querySelector(".card__image");
+
   const fullCard = imageModalElement.querySelector(".modal__full-img");
   const cardLocation = imageModalElement.querySelector(".modal__location");
-  cardImage.addEventListener("click", (e) => {
+  cardElementImage.addEventListener("click", (e) => {
     openModal(imageModalElement);
     fullCard.src = e.target.src;
     cardLocation.innerText = e.target.alt;
@@ -137,20 +140,23 @@ imageCloseButton.addEventListener("click", () => {
   closeModal(imageModalElement);
 });
 
-document.addEventListener("keydown", function (event) {
+/* document.addEventListener("keydown", function (event) {
   closeWithEscapeKey(event, addModalElement);
   closeWithEscapeKey(event, editModalElement);
   closeWithEscapeKey(event, imageModalElement);
-});
+}); */
+
 console.log(imageModalElement.classList);
 function closeWithEscapeKey(event, modalEl) {
   if (
     (event.key === "Escape" || event.code === "Escape") &&
-    modalEl.classList.contains("modal_opened")
+    modalEl.classList.contains(openedPopUp)
   ) {
     closeModal(modalEl);
   }
 }
+
+document.addEventListener("keydown", closeWithEscapeKey(imageModalElement));
 function closeWithClick(event) {
   if (event.target.classList.contains("modal")) {
     closeModal(event.target);
