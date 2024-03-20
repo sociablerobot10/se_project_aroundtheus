@@ -49,11 +49,14 @@ const imageCloseButton = imageModalElement.querySelector(".modal__close");
 const openedPopUp = "";
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("click", closeWithClick);
+  document.removeEventListener("keydown", closeWithEscapeKey);
 }
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
-  const openedPopUp = document.querySelector(".modal_opened");
+  document.addEventListener("keydown", closeWithEscapeKey);
+  document.addEventListener("click", closeWithClick);
 }
 /*formElement.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -140,28 +143,16 @@ imageCloseButton.addEventListener("click", () => {
   closeModal(imageModalElement);
 });
 
-/* document.addEventListener("keydown", function (event) {
-  closeWithEscapeKey(event, addModalElement);
-  closeWithEscapeKey(event, editModalElement);
-  closeWithEscapeKey(event, imageModalElement);
-}); */
-
 console.log(imageModalElement.classList);
-function closeWithEscapeKey(event, modalEl) {
-  if (
-    (event.key === "Escape" || event.code === "Escape") &&
-    modalEl.classList.contains(openedPopUp)
-  ) {
-    closeModal(modalEl);
+function closeWithEscapeKey(event) {
+  if (event.key === "Escape") {
+    const openPopUp = document.querySelector(".modal_opened");
+    closeModal(openPopUp);
   }
 }
 
-document.addEventListener("keydown", closeWithEscapeKey(imageModalElement));
 function closeWithClick(event) {
   if (event.target.classList.contains("modal")) {
     closeModal(event.target);
   }
 }
-document.addEventListener("click", function (event) {
-  closeWithClick(event);
-});
