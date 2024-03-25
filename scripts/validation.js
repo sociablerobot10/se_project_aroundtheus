@@ -1,4 +1,4 @@
-const showInputError = function (formEl, inputEl, options) {
+/* const showInputError = function (formEl, inputEl, options) {
   const errorEl = formEl.querySelector(`#${inputEl.id}-error`);
   inputEl.classList.add(options.inputErrorClass);
 
@@ -66,3 +66,4 @@ const config = {
   errorClass: "modal__error_visible",
 };
 enableValidation(config);
+*/
