@@ -42,7 +42,7 @@ class FormValidator {
     }
   }
 
-  setEventListeners(formEl, options) {
+  setEventListeners(inputEls) {
     const inputEls = Array.from(
       this._formEl.querySelectorAll(this._options.inputSelector)
     );
