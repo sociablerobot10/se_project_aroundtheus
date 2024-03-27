@@ -138,7 +138,9 @@ function handleImageClick(e) {
 
 initialCards.forEach(function (data) {
   let cardEl = new Card(data, "#card-template", handleImageClick);
-  cardEl.getCardElement(data);
+  console.log(cardEl);
+  let cardEls = cardEl.getCardElement(data);
+  cardList.append(cardEls);
 });
 
 addProfileButton.addEventListener("click", function () {

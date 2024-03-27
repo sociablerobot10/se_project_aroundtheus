@@ -34,12 +34,7 @@ export default class Card {
     this._fullCard = this._imageModalElement.querySelector(".modal__full-img");
     this._cardLocation =
       this._imageModalElement.querySelector(".modal__location");
-    this._cardElementImage.addEventListener("click", (e) => {
-      openModal(this._imageModalElement);
-      this._fullCard.src = e.target.src;
-      this._cardLocation.innerText = e.target.alt;
-      this._fullCard.alt = e.target.alt;
-    });
+
     return this._cardElement;
   }
 }
