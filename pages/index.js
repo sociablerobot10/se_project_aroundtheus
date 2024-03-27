@@ -1,4 +1,5 @@
 import Card from "/../components/card.js";
+import FormValidator from "/../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -125,6 +126,8 @@ editProfileButton.addEventListener("click", function () {
 // }
 
 function handleImageClick(e) {
+  const fullCard = imageModalElement.querySelector(".modal__full-img");
+  const cardLocation = imageModalElement.querySelector(".modal__location");
   console.log("Image Clicked", e.target.src);
   openModal(imageModalElement);
 
@@ -141,8 +144,6 @@ function handleImageClick(e) {
 initialCards.forEach(function (data) {
   let cardEl = new Card(data, "#card-template", handleImageClick);
   let cardEls = cardEl.getCardElement(data);
-  console.log(cardEls.setEventListeners);
-
   cardList.append(cardEls);
 });
 
@@ -176,3 +177,14 @@ function closeWithClick(event) {
     closeModal(event.target);
   }
 }
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+const editModalValidator = new FormValidator(config, editModalElement);
+editModalValidator.setEventListeners;

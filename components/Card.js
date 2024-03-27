@@ -22,6 +22,7 @@ export default class Card {
     this._cardElementTitle.textContent = this._data.name;
     this._likeBtn = this._cardElement.querySelector(".card__heart-icon");
     this._trashIcon = this._cardElement.querySelector(".card__trash-icon");
+    this._setEventListeners();
     this._likeBtn.addEventListener("click", () => {
       this._likeBtn.classList.toggle("card__heart-icon_active");
     });
@@ -40,6 +41,7 @@ export default class Card {
       this._cardLocation.innerText = e.target.alt;
       this._fullCard.alt = e.target.alt;
     });*/
+
     return this._cardElement;
   }
 }
