@@ -140,8 +140,9 @@ function handleImageClick(e) {
 
 initialCards.forEach(function (data) {
   let cardEl = new Card(data, "#card-template", handleImageClick);
-  console.log(cardEl);
   let cardEls = cardEl.getCardElement(data);
+  console.log(cardEls.setEventListeners);
+
   cardList.append(cardEls);
 });
 
