@@ -125,7 +125,9 @@ editProfileButton.addEventListener("click", function () {
 // }
 
 function handleImageClick(e) {
+  console.log("Image Clicked", e.target.src);
   openModal(imageModalElement);
+
   fullCard.src = e.target.src;
   cardLocation.innerText = e.target.alt;
   fullCard.alt = e.target.alt;
