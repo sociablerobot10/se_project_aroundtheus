@@ -74,9 +74,7 @@ export default class FormValidator {
     //     });
     //   }
     //
-    console.log("hello");
-    this._formEl = document.querySelector(this._options.formSelector);
-    console.log(this._formEl);
+
     this._formEl.addEventListener("submit", (e) => {
       e.preventDefault();
     });
