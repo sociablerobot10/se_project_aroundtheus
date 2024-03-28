@@ -74,16 +74,12 @@ export default class FormValidator {
     //     });
     //   }
     //
-    this._formEls = Array.from(
-      document.querySelector(this._options.formSelector)
-    );
-
-    this._formEls.forEach((formElement) => {
-      formElement.addEventListener("submit", (e) => {
-        e.preventDefault();
-      });
-
-      this._setEventListeners();
+    console.log("hello");
+    this._formEl = document.querySelector(this._options.formSelector);
+    console.log(this._formEl);
+    this._formEl.addEventListener("submit", (e) => {
+      e.preventDefault();
     });
+    this._setEventListeners();
   }
 }

@@ -6,18 +6,26 @@ export default class Card {
       document.querySelector(cardTemplateSelector).content.firstElementChild; // const card = new Card(cardDtat, #card-template, handleImageClick)
     this._handleImageClick = handleImageClick;
   }
+
+  _handleRemove(e) {
+    e.preventDefault();
+    const currentTrashIcon = e.target;
+    currentTrashIcon.closest(".card").remove();
+  }
+  _handleLike(e) {
+    const currentLikeIcon = e.target;
+    currentLikeIcon
+      .closest(".card__heart-icon")
+      .classList.toggle("card__heart-icon_active");
+  }
+
   _setEventListeners() {
-    // .
     this._likeBtn = this._cardElement.querySelector(".card__heart-icon");
+
     this._trashIcon = this._cardElement.querySelector(".card__trash-icon");
-    this._likeBtn.addEventListener("click", () => {
-      this._likeBtn.classList.toggle("card__heart-icon_active");
-    });
-    this._trashIcon.addEventListener("click", function (e) {
-      e.preventDefault();
-      const currentTrashIcon = e.target;
-      currentTrashIcon.closest(".card").remove();
-    });
+    this._likeBtn.addEventListener("click", this._handleLike);
+
+    this._trashIcon.addEventListener("click", this._handleRemove);
     this._cardElementImage.addEventListener("click", (e) => {
       this._handleImageClick(e);
     });
