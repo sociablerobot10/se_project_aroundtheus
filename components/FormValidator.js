@@ -25,24 +25,30 @@ export default class FormValidator {
       this._hideInputError(inputEl);
     }
   }
-  toggleButtonState(inputEls, submitButton) {
-    let isInValid = false;
-    console.log("hello tt");
-    inputEls.forEach((inputEl) => {
-      if (!inputEl.validity.valid) {
-        isInValid = true;
-      }
-    });
-    if (isInValid) {
-      submitButton.classList.add(this._options.inactiveButtonClass);
-      submitButton.disabled = true;
+  _checkFormValidity = () =>
+    this._inputEls.every((input) => input.validity.valid);
+
+  toggleButtonState() {
+    // let isInValid = false;
+    // console.log("hello tt");
+    // this._inputEls.forEach((inputEl) => {
+    //   if (!inputEl.validity.valid) {
+    //     isInValid = true;
+    //   }
+    // });
+
+    const isFormValid = this._checkFormValidity();
+
+    if (isFormValid) {
+      this._submitButton.classList.add(this._options.inactiveButtonClass);
+      this._submitButton.disabled = true;
     } else {
-      submitButton.classList.remove(this._options.inactiveButtonClass);
-      submitButton.disabled = false;
+      this._submitButton.classList.remove(this._options.inactiveButtonClass);
+      this._submitButton.disabled = false;
     }
   }
 
-  _setEventListeners(formEl, options) {
+  _setEventListeners() {
     this._inputEls = Array.from(
       this._formEl.querySelectorAll(this._options.inputSelector)
     );
@@ -52,19 +58,32 @@ export default class FormValidator {
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
         this._checkInputValidity(inputEl);
-        this.toggleButtonState(this._inputEls, this._submitButton);
+        this.toggleButtonState();
       });
     });
   }
-  enableValidation(options) {
-    this.formEls = Array.from(
-      document.querySelectorAll(this._options.formSelector)
+  enableValidation() {
+    //     this.formEls = Array.from(
+    //       document.querySelectorAll(this._options.formSelector)
+    //     );
+    //     this.formEls.forEach((formEl) => {
+    //       formEl.addEventListener("submit", (e) => {
+    //         e.preventDefault();
+    //       });
+    //       this._setEventListeners(formEl, this._options);
+    //     });
+    //   }
+    //
+    this._formEls = Array.from(
+      document.querySelector(this._options.formSelector)
     );
-    this.formEls.forEach((formEl) => {
-      formEl.addEventListener("submit", (e) => {
+
+    this._formEls.forEach((formElement) => {
+      formElement.addEventListener("submit", (e) => {
         e.preventDefault();
       });
-      this._setEventListeners(formEl, this._options);
+
+      this._setEventListeners();
     });
   }
 }

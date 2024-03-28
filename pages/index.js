@@ -135,7 +135,6 @@ editProfileButton.addEventListener("click", function () {
 function handleImageClick(e) {
   const fullCard = imageModalElement.querySelector(".modal__full-img");
   const cardLocation = imageModalElement.querySelector(".modal__location");
-  console.log("Image Clicked", e.target.src);
   openModal(imageModalElement);
 
   fullCard.src = e.target.src;
@@ -194,7 +193,6 @@ const config = {
 };
 const editModalValidator = new FormValidator(config, editModalElement);
 const addModalValidator = new FormValidator(config, addModalElement);
-console.log(editModalValidator);
-editModalValidator.enableValidation(config);
-addModalValidator.enableValidation(config);
-console.log("hellodasdasdadasd");
+
+editModalValidator.enableValidation();
+addModalValidator.enableValidation();

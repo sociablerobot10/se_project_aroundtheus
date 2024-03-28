@@ -8,6 +8,16 @@ export default class Card {
   }
   _setEventListeners() {
     // .
+    this._likeBtn = this._cardElement.querySelector(".card__heart-icon");
+    this._trashIcon = this._cardElement.querySelector(".card__trash-icon");
+    this._likeBtn.addEventListener("click", () => {
+      this._likeBtn.classList.toggle("card__heart-icon_active");
+    });
+    this._trashIcon.addEventListener("click", function (e) {
+      e.preventDefault();
+      const currentTrashIcon = e.target;
+      currentTrashIcon.closest(".card").remove();
+    });
     this._cardElementImage.addEventListener("click", (e) => {
       this._handleImageClick(e);
     });
@@ -20,21 +30,12 @@ export default class Card {
     this._cardElementImage.src = this._data.link;
     this._cardElementImage.alt = this._data.name;
     this._cardElementTitle.textContent = this._data.name;
-    this._likeBtn = this._cardElement.querySelector(".card__heart-icon");
-    this._trashIcon = this._cardElement.querySelector(".card__trash-icon");
-    this._setEventListeners();
-    this._likeBtn.addEventListener("click", () => {
-      this._likeBtn.classList.toggle("card__heart-icon_active");
-    });
-    this._trashIcon.addEventListener("click", function (e) {
-      e.preventDefault();
-      const currentTrashIcon = e.target;
-      currentTrashIcon.closest(".card").remove();
-    });
+
     this._imageModalElement = document.querySelector("#image-modal");
     this._fullCard = this._imageModalElement.querySelector(".modal__full-img");
     this._cardLocation =
       this._imageModalElement.querySelector(".modal__location");
+    this._setEventListeners();
     /*this._cardElementImage.addEventListener("click", (e) => {
       openModal(this._imageModalElement);
       this._fullCard.src = e.target.src;
