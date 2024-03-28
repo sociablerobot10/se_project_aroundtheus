@@ -73,13 +73,20 @@ editFormElement.addEventListener("submit", function (e) {
   bioDescriptionField.innerText = descriptionInputField.value;
   closeModal(editModalElement);
 });
+function createCard(cardData) {
+  const card = new Card(cardData, "#card-template", handleImageClick);
+  const cardElement = card.getCardElement();
+  return cardElement;
+}
 addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
   const nameOfPlace = titleInputField.value;
   const url = linkInputField.value;
   const createdCard = { name: nameOfPlace, link: url };
-  const newCard = createCard(createdCard);
-  cardList.prepend(newCard);
+  // const newCard = new Card(createdCard, "#card-template", handleImageClick);
+  // const htmlCard = newCard.getCardElement();
+  const cardElement = createCard(createdCard);
+  cardList.prepend(cardElement);
   titleInputField.value = "";
   linkInputField.value = "";
   closeModal(addModalElement);
@@ -142,9 +149,8 @@ function handleImageClick(e) {
 });*/
 
 initialCards.forEach(function (data) {
-  let cardEl = new Card(data, "#card-template", handleImageClick);
-  let cardEls = cardEl.getCardElement(data);
-  cardList.append(cardEls);
+  const cardElement = createCard(data);
+  cardList.append(cardElement);
 });
 
 addProfileButton.addEventListener("click", function () {
@@ -187,4 +193,8 @@ const config = {
   errorClass: "modal__error_visible",
 };
 const editModalValidator = new FormValidator(config, editModalElement);
-editModalValidator.setEventListeners;
+const addModalValidator = new FormValidator(config, addModalElement);
+console.log(editModalValidator);
+editModalValidator.enableValidation(config);
+addModalValidator.enableValidation(config);
+console.log("hellodasdasdadasd");

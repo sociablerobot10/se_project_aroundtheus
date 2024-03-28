@@ -9,11 +9,11 @@ export default class Card {
   _setEventListeners() {
     // .
     this._cardElementImage.addEventListener("click", (e) => {
-      this._handleImageClick(e, this);
+      this._handleImageClick(e);
     });
   }
 
-  getCardElement(data) {
+  getCardElement() {
     this._cardElement = this._cardTemplate.cloneNode(true);
     this._cardElementTitle = this._cardElement.querySelector(".card__location");
     this._cardElementImage = this._cardElement.querySelector(".card__image");
