@@ -72,6 +72,7 @@ editFormElement.addEventListener("submit", function (e) {
   bioNameField.innerText = nameInputField.value;
   bioDescriptionField.innerText = descriptionInputField.value;
   closeModal(editModalElement);
+  editModalElement.toggleButtonState();
 });
 function createCard(cardData) {
   const card = new Card(cardData, "#card-template", handleImageClick);
@@ -154,6 +155,7 @@ initialCards.forEach(function (data) {
 
 addProfileButton.addEventListener("click", function () {
   openModal(addModalElement);
+  addModalElement.toggleButtonState();
 });
 
 /* cardImages.forEach((cardImage) => {
