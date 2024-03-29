@@ -155,7 +155,7 @@ initialCards.forEach(function (data) {
 
 addProfileButton.addEventListener("click", function () {
   openModal(addModalElement);
-  addModalElement.toggleButtonState();
+  addModalElement.toggleButtonState;
 });
 
 /* cardImages.forEach((cardImage) => {
