@@ -1,7 +1,7 @@
 import PopupWithForm from "../components/PopupWithForm.js";
 import Card from "/../components/card.js";
 import FormValidator from "/../components/FormValidator.js";
-
+import Section from "/../components/Section.js";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -151,10 +151,10 @@ function handleImageClick(e) {
   cardList.append(cardEl);
 });*/
 
-initialCards.forEach(function (data) {
+/* initialCards.forEach(function (data) {
   const cardElement = createCard(data);
   cardList.append(cardElement);
-});
+}); */
 
 addProfileButton.addEventListener("click", function () {
   addPopUp.open();
@@ -226,3 +226,17 @@ const addPopUp = new PopupWithForm({
 
 const test = document.querySelector("#edit-modal");
 console.log(test);
+const cardElements = new Section(
+  {
+    data: initialCards,
+    renderer(item) {
+      const card = new Card(item, "#card-template", handleImageClick);
+      const cardElement = card.getCardElement();
+      return cardElement;
+      console.log(cardElement);
+    },
+  },
+  ".cards__list"
+);
+
+cardElements.renderItems();

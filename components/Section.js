@@ -11,12 +11,15 @@ export default class Section {
   constructor({ items, renderer }, cardElements) {
     this._items = items;
     this._renderer = renderer;
-    this._cardElements = document.querySelector(cardElements);
+    this._container = document.querySelector(cardElements);
   }
   renderItems() {
-    items.forEach((item) => {
+    this._items.forEach((item) => {
+      console.log("hello");
       this._renderer(item);
     });
   }
-  addItem(item) {}
+  addItem(item) {
+    this._container.append(item);
+  }
 }
