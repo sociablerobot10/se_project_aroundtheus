@@ -1,3 +1,4 @@
+import PopupWithForm from "../components/PopupWithForm.js";
 import Card from "/../components/card.js";
 import FormValidator from "/../components/FormValidator.js";
 
@@ -50,7 +51,7 @@ const editFormElement = editModalElement.querySelector(".modal__form");
 const addFormElement = addModalElement.querySelector(".modal__form");
 const imageCloseButton = imageModalElement.querySelector(".modal__close");
 const openedPopUp = "";
-function closeModal(modal) {
+/* function closeModal(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("click", closeWithClick);
   document.removeEventListener("keydown", closeWithEscapeKey);
@@ -60,7 +61,7 @@ function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeWithEscapeKey);
   document.addEventListener("click", closeWithClick);
-}
+} */
 /*formElement.addEventListener("submit", function (e) {
   e.preventDefault();
   bioNameField.innerText = nameInputField.value;
@@ -71,7 +72,7 @@ editFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
   bioNameField.innerText = nameInputField.value;
   bioDescriptionField.innerText = descriptionInputField.value;
-  closeModal(editModalElement);
+  profilePopUp.close();
   editModalValidator.toggleButtonState();
 });
 function createCard(cardData) {
@@ -91,18 +92,19 @@ addFormElement.addEventListener("submit", function (e) {
   titleInputField.value = "";
   linkInputField.value = "";
   addModalValidator.toggleButtonState();
-  closeModal(addModalElement);
+  addPopUp.close();
+  // closeModal(addModalElement);
 });
 editCloseButton.addEventListener("click", function () {
-  closeModal(editModalElement);
+  profilePopUp.close();
 });
 addCloseButton.addEventListener("click", function () {
-  closeModal(addModalElement);
+  addPopUp.close();
 });
 editProfileButton.addEventListener("click", function () {
   nameInputField.value = bioNameField.innerText;
   descriptionInputField.value = bioDescriptionField.innerText;
-  openModal(editModalElement);
+  profilePopUp.open();
 });
 
 // function createCard(data) {
@@ -155,7 +157,8 @@ initialCards.forEach(function (data) {
 });
 
 addProfileButton.addEventListener("click", function () {
-  openModal(addModalElement);
+  addPopUp.open();
+
   addModalValidator.toggleButtonState();
 });
 
@@ -169,10 +172,9 @@ addProfileButton.addEventListener("click", function () {
 }); */
 
 imageCloseButton.addEventListener("click", () => {
-  closeModal(imageModalElement);
+  // closeModal(imageModalElement);
 });
 
-console.log(imageModalElement.classList);
 function closeWithEscapeKey(event) {
   if (event.key === "Escape") {
     const openPopUp = document.querySelector(".modal_opened");
@@ -199,3 +201,28 @@ const addModalValidator = new FormValidator(config, addModalElement);
 
 editModalValidator.enableValidation();
 addModalValidator.enableValidation();
+
+function handleProfileSubmit(e, inputElsObj) {
+  e.preventDefault();
+  const inputKey = inputElsObj["name"];
+  const inputValue = inputElsObj["description"];
+  bioNameField.innerText = inputKey;
+  bioDescriptionField.innerText = inputValue;
+}
+function handleAddCardSubmit(e, inputElsObj) {
+  const inputKey = inputElsObj["title"];
+  const inputLink = inputElsObj["link"];
+  const cardEl = createCard({ inputKey, inputLink });
+  cardList.prepend(cardEl);
+}
+const profilePopUp = new PopupWithForm({
+  popUpSelector: "#edit-modal",
+  handleFormSubmit: handleProfileSubmit,
+});
+const addPopUp = new PopupWithForm({
+  popUpSelector: "#add-modal",
+  handleFormSubmit: handleAddCardSubmit,
+});
+
+const test = document.querySelector("#edit-modal");
+console.log(test);
