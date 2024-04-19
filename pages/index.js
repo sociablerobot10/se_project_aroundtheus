@@ -228,15 +228,12 @@ const test = document.querySelector("#edit-modal");
 console.log(test);
 const cardElements = new Section(
   {
-    data: initialCards,
+    items: initialCards,
     renderer(item) {
       const card = new Card(item, "#card-template", handleImageClick);
       const cardElement = card.getCardElement();
-      return cardElement;
-      console.log(cardElement);
+      card.addItem(cardElement);
     },
   },
   ".cards__list"
 );
-
-cardElements.renderItems();
