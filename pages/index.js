@@ -2,6 +2,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import Card from "/../components/card.js";
 import FormValidator from "/../components/FormValidator.js";
 import Section from "/../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -70,8 +71,10 @@ function openModal(modal) {
 }); */
 editFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
-  bioNameField.innerText = nameInputField.value;
-  bioDescriptionField.innerText = descriptionInputField.value;
+  /*   bioNameField.innerText = nameInputField.value;
+  bioDescriptionField.innerText = descriptionInputField.value; */
+
+  userOne.setUserInfo(nameInputField.value, descriptionInputField.value);
   profilePopUp.close();
   editModalValidator.toggleButtonState();
 });
@@ -102,10 +105,13 @@ addCloseButton.addEventListener("click", function () {
   addPopUp.close();
 });
 editProfileButton.addEventListener("click", function () {
-  nameInputField.value = bioNameField.innerText;
-  descriptionInputField.value = bioDescriptionField.innerText;
+  /*   nameInputField.value = bioNameField.innerText;
+  descriptionInputField.value = bioDescriptionField.innerText; */
+  const userInfo = Object.values(userOne.getUserInfo());
+  profilePopUp.setInputValues(userInfo);
   profilePopUp.open();
 });
+const userOne = new UserInfo(".bio__name", ".bio__description");
 
 // function createCard(data) {
 //   const cardElement = cardTemplate.cloneNode(true);
@@ -232,8 +238,11 @@ const cardElements = new Section(
     renderer(item) {
       const card = new Card(item, "#card-template", handleImageClick);
       const cardElement = card.getCardElement();
-      card.addItem(cardElement);
+      cardElements.addItem(cardElement);
+      return cardElement;
     },
   },
   ".cards__list"
 );
+
+cardElements.renderItems();
