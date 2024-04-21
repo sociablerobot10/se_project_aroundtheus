@@ -1,7 +1,8 @@
 import PopupWithForm from "../components/PopupWithForm.js";
-import Card from "/../components/card.js";
-import FormValidator from "/../components/FormValidator.js";
-import Section from "/../components/Section.js";
+import Card from "../components/card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+
 import UserInfo from "../components/UserInfo.js";
 const initialCards = [
   {
