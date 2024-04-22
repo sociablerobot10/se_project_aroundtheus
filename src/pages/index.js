@@ -70,21 +70,21 @@ function openModal(modal) {
   bioDescriptionField.innerText = descriptionInputField.value;
   closeModal();
 }); */
-editFormElement.addEventListener("submit", function (e) {
-  e.preventDefault();
-  /*   bioNameField.innerText = nameInputField.value;
-  bioDescriptionField.innerText = descriptionInputField.value; */
+// editFormElement.addEventListener("submit", function (e) {
+//   e.preventDefault();
+//   /*   bioNameField.innerText = nameInputField.value;
+//   bioDescriptionField.innerText = descriptionInputField.value; */
 
-  userOne.setUserInfo(nameInputField.value, descriptionInputField.value);
-  profilePopUp.close();
-  editModalValidator.toggleButtonState();
-});
+//   userOne.setUserInfo(nameInputField.value, descriptionInputField.value);
+//   profilePopUp.close();
+//   editModalValidator.toggleButtonState();
+// });
 function createCard(cardData) {
   const card = new Card(cardData, "#card-template", handleImageClick);
   const cardElement = card.getCardElement();
   return cardElement;
 }
-addFormElement.addEventListener("submit", function (e) {
+/* addFormElement.addEventListener("submit", function (e) {
   e.preventDefault();
   const nameOfPlace = titleInputField.value;
   const url = linkInputField.value;
@@ -92,13 +92,13 @@ addFormElement.addEventListener("submit", function (e) {
   // const newCard = new Card(createdCard, "#card-template", handleImageClick);
   // const htmlCard = newCard.getCardElement();
   const cardElement = createCard(createdCard);
-  cardList.prepend(cardElement);
+  cardElements.addItem(cardElement);
   titleInputField.value = "";
   linkInputField.value = "";
   addModalValidator.toggleButtonState();
   addPopUp.close();
   // closeModal(addModalElement);
-});
+}); */
 editCloseButton.addEventListener("click", function () {
   profilePopUp.close();
 });
@@ -146,7 +146,7 @@ const userOne = new UserInfo(".bio__name", ".bio__description");
 function handleImageClick(e) {
   const fullCard = imageModalElement.querySelector(".modal__full-img");
   const cardLocation = imageModalElement.querySelector(".modal__location");
-  openModal(imageModalElement);
+  addPopUp.open();
 
   fullCard.src = e.target.src;
   cardLocation.innerText = e.target.alt;
@@ -213,14 +213,13 @@ function handleProfileSubmit(e, inputElsObj) {
   e.preventDefault();
   const inputKey = inputElsObj["name"];
   const inputValue = inputElsObj["description"];
-  bioNameField.innerText = inputKey;
-  bioDescriptionField.innerText = inputValue;
+  profilePopUp.setUserInfo(inputKey, inputValue);
 }
 function handleAddCardSubmit(e, inputElsObj) {
   const inputKey = inputElsObj["title"];
   const inputLink = inputElsObj["link"];
   const cardEl = createCard({ inputKey, inputLink });
-  cardList.prepend(cardEl);
+  cardElements.addItem(cardEl);
 }
 const profilePopUp = new PopupWithForm({
   popUpSelector: "#edit-modal",

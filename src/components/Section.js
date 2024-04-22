@@ -8,10 +8,10 @@ It has a public method named addItem() that takes a DOM element and adds it to t
  */
 
 export default class Section {
-  constructor({ items, renderer }, cardElements) {
+  constructor({ items, renderer }, containerSelector) {
     this._items = items;
     this._renderer = renderer;
-    this._container = document.querySelector(cardElements);
+    this._container = document.querySelector(containerSelector);
   }
   renderItems() {
     this._items.forEach((item) => {
@@ -20,6 +20,6 @@ export default class Section {
     });
   }
   addItem(item) {
-    this._container.append(item);
+    this._container.prepend(item);
   }
 }
