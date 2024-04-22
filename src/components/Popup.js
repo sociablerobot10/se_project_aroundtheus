@@ -14,10 +14,10 @@ export default class Popup {
     this._popElement = document.querySelector(popUpSelector);
   }
   open() {
-    console.log(this._popElement);
     this._popElement.classList.add("modal_opened");
-    document.addEventListener("keydown", this._handleEscClose);
-    document.addEventListener("click", this._closeWithClick);
+    console.log(this._popElement);
+    this._popElement.addEventListener("keydown", this._handleEscClose);
+    this._popElement.addEventListener("click", this._closeWithClick);
   }
   close() {
     this._popElement.classList.remove("modal_opened");
@@ -26,17 +26,34 @@ export default class Popup {
   }
   _handleEscClose = (event) => {
     if (event.key === "Escape") {
-      const openPopUp = document.querySelector(".modal_opened");
-      close();
+      this.close();
     }
   };
   _closeWithClick = (event) => {
-    if (event.type === "click") {
-      const openPopUp = document.querySelector(".modal_opened");
-      close();
+    if (event.type === "mousedown") {
+      this.close();
     }
   };
-  setEventListeners() {}
+
+  setEventListeners() {
+    const editCloseButton = editModalElement.querySelector("button");
+    const addCloseButton = addModalElement.querySelector("button");
+    const editProfileButton =
+      this._popElement.querySelector(".bio__edit-button");
+    const addProfileButton = this._popElement.querySelector(".bio__add-button");
+    editCloseButton.addEventListener("click", function () {
+      this.close();
+    });
+    addProfileButton.addEventListener("click", function () {
+      this.open();
+
+      addModalValidator.toggleButtonState();
+    });
+
+    addCloseButton.addEventListener("click", function () {
+      this.close();
+    });
+  }
 }
 
 /*

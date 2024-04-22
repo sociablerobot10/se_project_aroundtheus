@@ -16,13 +16,8 @@ Here’s an example of what the method declaration might look
  */
 // data should be an object containing the name and link
 
-Create one instance of this class
-in index.js and call its parent’s setEventListeners() method.cardElementImage.src = data.link;
 //   cardElementImage.alt = data.name;
 //   cardElementTitle.textContent = data.name;
-
-
-
 
 export default class PopupWithImage extends Popup {
   constructor({ popUpSelector, handleFormSubmit }) {
@@ -34,7 +29,6 @@ export default class PopupWithImage extends Popup {
     );
   }
   open(data) {
-     
     // set the image's src and alt
     // set the caption's textContent
     super.open();
