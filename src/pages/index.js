@@ -230,8 +230,7 @@ const addPopUp = new PopupWithForm({
 });
 
 const imagePopUp = new PopupWithImage("#image-modal");
-const test = document.querySelector("#edit-modal");
-console.log(test);
+
 const cardElements = new Section(
   {
     items: initialCards,
