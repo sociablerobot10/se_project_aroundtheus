@@ -20,17 +20,20 @@ Here’s an example of what the method declaration might look
 //   cardElementTitle.textContent = data.name;
 
 export default class PopupWithImage extends Popup {
-  constructor({ popUpSelector, handleFormSubmit }) {
+  constructor(popUpSelector) {
+    // #modal-image
     super({ popUpSelector });
-    this._popForm = this._popElement.querySelector(".modal__form");
-    this._handleFormSubmit = handleFormSubmit;
-    this._inputEls = Array.from(
-      this._popForm.querySelectorAll(".modal__input")
-    );
+    this._popUpSelector = popUpSelector;
+    this.popUpImage = this._popElement.querySelector(".modal__full-img");
+    this.popUpCaption = this._popElement.querySelector(".modal__location");
+    //element that holds the image
+    //element that holds the caption
+    super.setEventListeners();
   }
-  open(data) {
-    // set the image's src and alt
-    // set the caption's textContent
+  open(name, link) {
+    this.popUpImage.src = link;
+    this.popUpCaption.textContent = name;
+    this.popUpImage.alt = name;
     super.open();
   }
 }

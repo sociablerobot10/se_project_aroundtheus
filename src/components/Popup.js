@@ -12,6 +12,7 @@ You won’t instantiate your Popup class directly in index.js; instead, you’ll
 export default class Popup {
   constructor({ popUpSelector }) {
     this._popElement = document.querySelector(popUpSelector);
+    this._closeButton = this._popElement.querySelector(".modal__close");
   }
   open() {
     this._popElement.classList.add("modal_opened");
@@ -30,29 +31,28 @@ export default class Popup {
     }
   };
   _closeWithClick = (event) => {
-    if (event.type === "mousedown") {
+    if (event.target.classList.contains("modal")) {
       this.close();
     }
   };
 
   setEventListeners() {
-    const editCloseButton = editModalElement.querySelector("button");
-    const addCloseButton = addModalElement.querySelector("button");
-    const editProfileButton =
-      this._popElement.querySelector(".bio__edit-button");
-    const addProfileButton = this._popElement.querySelector(".bio__add-button");
-    editCloseButton.addEventListener("click", function () {
-      this.close();
+    // const editCloseButton = editModalElement.querySelector("button");
+    // const addCloseButton = addModalElement.querySelector("button");
+    this._popElement.addEventListener("click", (event) => {
+      this._closeWithClick(event);
     });
-    addProfileButton.addEventListener("click", function () {
-      this.open();
-
-      addModalValidator.toggleButtonState();
+    this._popElement.addEventListener("click", (event) => {
+      this._handleEscClose(event);
     });
 
-    addCloseButton.addEventListener("click", function () {
+    this._closeButton.addEventListener("click", () => {
       this.close();
     });
+    // this._closeButton.addEventListener("click", function () {
+
+    //   addModalValidator.toggleButtonState();
+    // })
   }
 }
 

@@ -4,6 +4,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import "./index.css";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -143,14 +144,8 @@ const userOne = new UserInfo(".bio__name", ".bio__description");
 //   return cardElement;
 // }
 
-function handleImageClick(e) {
-  const fullCard = imageModalElement.querySelector(".modal__full-img");
-  const cardLocation = imageModalElement.querySelector(".modal__location");
-  addPopUp.open();
-
-  fullCard.src = e.target.src;
-  cardLocation.innerText = e.target.alt;
-  fullCard.alt = e.target.alt;
+function handleImageClick(name, link) {
+  imagePopUp.open(name, link);
 }
 
 /*initialCards.forEach(function (data) {
@@ -211,14 +206,18 @@ addModalValidator.enableValidation();
 
 function handleProfileSubmit(e, inputElsObj) {
   e.preventDefault();
-  const inputKey = inputElsObj["name"];
+  console.log(inputElsObj);
+
+  const inputKey = inputElsObj["title"];
   const inputValue = inputElsObj["description"];
-  profilePopUp.setUserInfo(inputKey, inputValue);
+
+  userOne.setUserInfo(inputKey, inputValue);
 }
 function handleAddCardSubmit(e, inputElsObj) {
-  const inputKey = inputElsObj["title"];
-  const inputLink = inputElsObj["link"];
-  const cardEl = createCard({ inputKey, inputLink });
+  debugger;
+  const name = inputElsObj["title"];
+  const link = inputElsObj["img-link"];
+  const cardEl = createCard({ name, link }); //{name: name, link: link}
   cardElements.addItem(cardEl);
 }
 const profilePopUp = new PopupWithForm({
@@ -230,6 +229,7 @@ const addPopUp = new PopupWithForm({
   handleFormSubmit: handleAddCardSubmit,
 });
 
+const imagePopUp = new PopupWithImage("#image-modal");
 const test = document.querySelector("#edit-modal");
 console.log(test);
 const cardElements = new Section(
