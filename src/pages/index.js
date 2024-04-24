@@ -100,12 +100,12 @@ function createCard(cardData) {
   addPopUp.close();
   // closeModal(addModalElement);
 }); */
-editCloseButton.addEventListener("click", function () {
+/* editCloseButton.addEventListener("click", function () {
   profilePopUp.close();
 });
 addCloseButton.addEventListener("click", function () {
   addPopUp.close();
-});
+}); */
 editProfileButton.addEventListener("click", function () {
   /*   nameInputField.value = bioNameField.innerText;
   descriptionInputField.value = bioDescriptionField.innerText; */
@@ -173,10 +173,6 @@ addProfileButton.addEventListener("click", function () {
   });
 }); */
 
-imageCloseButton.addEventListener("click", () => {
-  // closeModal(imageModalElement);
-});
-
 function closeWithEscapeKey(event) {
   if (event.key === "Escape") {
     const openPopUp = document.querySelector(".modal_opened");
@@ -204,17 +200,13 @@ const addModalValidator = new FormValidator(config, addModalElement);
 editModalValidator.enableValidation();
 addModalValidator.enableValidation();
 
-function handleProfileSubmit(e, inputElsObj) {
-  e.preventDefault();
-  console.log(inputElsObj);
-
+function handleProfileSubmit(inputElsObj) {
   const inputKey = inputElsObj["title"];
   const inputValue = inputElsObj["description"];
 
   userOne.setUserInfo(inputKey, inputValue);
 }
-function handleAddCardSubmit(e, inputElsObj) {
-  debugger;
+function handleAddCardSubmit(inputElsObj) {
   const name = inputElsObj["title"];
   const link = inputElsObj["img-link"];
   const cardEl = createCard({ name, link }); //{name: name, link: link}
@@ -235,10 +227,9 @@ const cardElements = new Section(
   {
     items: initialCards,
     renderer(item) {
-      const card = new Card(item, "#card-template", handleImageClick);
-      const cardElement = card.getCardElement();
-      cardElements.addItem(cardElement);
-      return cardElement;
+      const card = createCard(item);
+      cardElements.addItem(card);
+      return card;
     },
   },
   ".cards__list"
