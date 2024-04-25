@@ -28,7 +28,6 @@ export default class PopupWithImage extends Popup {
     this.popUpCaption = this._popElement.querySelector(".modal__location");
     //element that holds the image
     //element that holds the caption
-    super.setEventListeners();
   }
   open(name, link) {
     this.popUpImage.src = link;

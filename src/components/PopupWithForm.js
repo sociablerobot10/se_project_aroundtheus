@@ -9,7 +9,6 @@ export default class PopupWithForm extends Popup {
     this._inputEls = Array.from(
       this._popForm.querySelectorAll(".modal__input")
     );
-    this.setEventListeners();
   }
   _getInputValues() {
     const inputElsObj = {};
