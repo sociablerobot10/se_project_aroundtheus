@@ -5,6 +5,30 @@ import Section from "../components/Section.js";
 import "./index.css";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import Api from "../components/Api.js";
+
+const cardTemplate =
+  document.querySelector("#card-template").content.firstElementChild;
+const editModalElement = document.querySelector("#edit-modal");
+const addModalElement = document.querySelector("#add-modal");
+const imageModalElement = document.querySelector("#image-modal");
+const editProfileButton = document.querySelector(".bio__edit-button");
+const addProfileButton = document.querySelector(".bio__add-button");
+const nameInputField = document.querySelector(".modal__input-name");
+const descriptionInputField = document.querySelector(
+  ".modal__input-description"
+);
+const titleInputField = document.querySelector(".modal__input-title");
+const linkInputField = document.querySelector(".modal__input-link");
+const bioNameField = document.querySelector(".bio__name");
+const bioDescriptionField = document.querySelector(".bio__description");
+const cardList = document.querySelector(".cards__list");
+const addCloseButton = addModalElement.querySelector("button");
+const editCloseButton = editModalElement.querySelector("button");
+const editFormElement = editModalElement.querySelector(".modal__form");
+const addFormElement = addModalElement.querySelector(".modal__form");
+const imageCloseButton = imageModalElement.querySelector(".modal__close");
+const openedPopUp = "";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -31,34 +55,20 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "a7c76f3b-285a-43ae-a0fb-08664ccc6a10",
+    "Content-Type": "application/json",
+  },
+});
 
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-const editModalElement = document.querySelector("#edit-modal");
-const addModalElement = document.querySelector("#add-modal");
-const imageModalElement = document.querySelector("#image-modal");
-const editProfileButton = document.querySelector(".bio__edit-button");
-const addProfileButton = document.querySelector(".bio__add-button");
-const nameInputField = document.querySelector(".modal__input-name");
-const descriptionInputField = document.querySelector(
-  ".modal__input-description"
-);
-const titleInputField = document.querySelector(".modal__input-title");
-const linkInputField = document.querySelector(".modal__input-link");
-const bioNameField = document.querySelector(".bio__name");
-const bioDescriptionField = document.querySelector(".bio__description");
-const cardList = document.querySelector(".cards__list");
-const addCloseButton = addModalElement.querySelector("button");
-const editCloseButton = editModalElement.querySelector("button");
-const editFormElement = editModalElement.querySelector(".modal__form");
-const addFormElement = addModalElement.querySelector(".modal__form");
-const imageCloseButton = imageModalElement.querySelector(".modal__close");
-const openedPopUp = "";
 /* function closeModal(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("click", closeWithClick);
   document.removeEventListener("keydown", closeWithEscapeKey);
 }
+
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
@@ -220,12 +230,49 @@ const addPopUp = new PopupWithForm({
   popUpSelector: "#add-modal",
   handleFormSubmit: handleAddCardSubmit,
 });
+initialCards.forEach((obj) => api.postInitialCards(obj.name, obj.link));
+api
+  .getInitialCards()
+  .then((JSONFromResponse) => {
+    const cardElements = new Section(
+      {
+        items: JSONFromResponse,
+        renderer(item) {
+          const card = createCard(item);
+          cardElements.addItem(card);
+          return card;
+        },
+      },
+      ".cards__list"
+    );
+    return cardElements;
+  })
+  .then((cardElements) => cardElements.renderItems());
+
+/* initialCards
+  .forEach()
+  .getInitialCards()
+  .then((JSONFromResponse) => {
+    const cardElements = new Section(
+      {
+        items: JSONFromResponse,
+        renderer(item) {
+          const card = createCard(item);
+          cardElements.addItem(card);
+          return card;
+        },
+      },
+      ".cards__list"
+    );
+    return cardElements;
+  })
+  .then((cardElements) => cardElements.renderItems()); */
 
 const imagePopUp = new PopupWithImage("#image-modal");
 
-const cardElements = new Section(
+/* const cardElements = new Section(
   {
-    items: initialCards,
+    items: JSONR,
     renderer(item) {
       const card = createCard(item);
       cardElements.addItem(card);
@@ -233,6 +280,4 @@ const cardElements = new Section(
     },
   },
   ".cards__list"
-);
-
-cardElements.renderItems();
+); */
