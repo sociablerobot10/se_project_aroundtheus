@@ -23,7 +23,7 @@ module.exports = {
     port: 8080,
     open: true,
     liveReload: true,
-    hot: false,
+    hot: true,
   },
   module: {
     rules: [
