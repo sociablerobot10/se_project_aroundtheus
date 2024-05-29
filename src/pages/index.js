@@ -5,7 +5,7 @@ import Section from "../components/Section.js";
 import "./index.css";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import Api from "../components/API.js";
+import API from "../components/API.js";
 /* const initialCards = [
   {
     name: "Yosemite Valley",
@@ -31,8 +31,8 @@ import Api from "../components/API.js";
     name: "Lago di Braies",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
-]; */
-
+];
+ */
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const editModalElement = document.querySelector("#edit-modal");
@@ -218,7 +218,9 @@ function handleAddCardSubmit(inputElsObj) {
   const name = inputElsObj["title"];
   const link = inputElsObj["img-link"];
   const cardEl = createCard({ name, link }); //{name: name, link: link}
-  cardElements.addItem(cardEl);
+  firstAPI.postInitialCards(name, link);
+  console.log(name, link);
+  //cardElements.addItem(cardEl);
 }
 const profilePopUp = new PopupWithForm({
   popUpSelector: "#edit-modal",
@@ -232,7 +234,7 @@ const addPopUp = new PopupWithForm({
 addPopUp.setEventListeners();
 
 const imagePopUp = new PopupWithImage("#image-modal");
-const firstAPI = new Api(options);
+const firstAPI = new API(options);
 const cardElements = new Section(
   {
     items: [],
@@ -245,8 +247,22 @@ const cardElements = new Section(
   ".cards__list"
 );
 
-firstAPI.getInitialCards().then((cards) => {
-  cardElements.setItems(cards);
-  cardElements.renderItems();
-  console.log("hello");
-});
+firstAPI
+  .getInitialCards()
+  .then((cards) => {
+    cardElements.setItems(cards);
+    cardElements.renderItems();
+  })
+  .catch((err) => {
+    console.error(err);
+    alert(err, "Could not get initial cards!");
+  });
+
+/*initialCards.forEach(function (data) {
+  let cardEl = createCard(data);
+  cardList.append(cardEl);
+});*/
+
+/* initialCards.forEach(function (data) {
+  firstAPI.postInitialCards(data.name, data.link);
+}); */

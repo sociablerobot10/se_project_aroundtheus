@@ -1,8 +1,7 @@
-class Api {
+class API {
   constructor(options) {
     this._baseUrl = options.baseURL;
     this._headers = options.headers;
-    console.log("api constructor has run");
   }
 
   getInitialCards() {
@@ -34,4 +33,4 @@ class Api {
   }
 }
 
-export default Api;
+export default API;
