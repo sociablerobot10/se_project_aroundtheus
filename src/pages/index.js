@@ -217,8 +217,13 @@ function handleProfileSubmit(inputElsObj) {
 function handleAddCardSubmit(inputElsObj) {
   const name = inputElsObj["title"];
   const link = inputElsObj["img-link"];
-  const cardEl = createCard({ name, link }); //{name: name, link: link}
-  firstAPI.postInitialCards(name, link);
+
+  //const cardEl = createCard({ name, link }); //{name: name, link: link}
+  firstAPI.postNewCard(name, link).then((data) => {
+    const cardEl = createCard(data.name, data.link);
+    console.log(cardEl);
+    cardElements.addItem(cardEl);
+  });
   console.log(name, link);
   //cardElements.addItem(cardEl);
 }

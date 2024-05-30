@@ -15,7 +15,7 @@ class API {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
-  postInitialCards(name, link) {
+  postNewCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
       method: "POST",
