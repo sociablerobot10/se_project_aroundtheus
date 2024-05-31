@@ -1,21 +1,28 @@
 export default class Card {
-  constructor(data, cardTemplateSelector, handleImageClick) {
+  constructor(
+    data,
+    cardTemplateSelector,
+    handleImageClick,
+    handleTrashIconClick,
+    handleHeartIconClick
+  ) {
     this._data = data; //this._data.name
-
+    this.id = data._id;
+    this.isLiked = data.isLiked;
     this._cardTemplate =
       document.querySelector(cardTemplateSelector).content.firstElementChild; // const card = new Card(cardDtat, #card-template, handleImageClick)
     this._handleImageClick = handleImageClick;
+    this._handleTrashIconClick = handleTrashIconClick;
+    this._handleHeartIconClick = handleHeartIconClick;
   }
 
-  _handleRemove(e) {
-    e.preventDefault();
-    const currentTrashIcon = e.target;
-    currentTrashIcon.closest(".card").remove();
+  handleRemove() {
+    this._cardElement.remove();
   }
-  _handleLike(e) {
-    const currentLikeIcon = e.target;
-    currentLikeIcon
-      .closest(".card__heart-icon")
+  handleLike(e) {
+    console.log(this._cardElement);
+    this._cardElement
+      .querySelector(".card__heart-icon")
       .classList.toggle("card__heart-icon_active");
   }
 
@@ -23,9 +30,13 @@ export default class Card {
     this._likeBtn = this._cardElement.querySelector(".card__heart-icon");
 
     this._trashIcon = this._cardElement.querySelector(".card__trash-icon");
-    this._likeBtn.addEventListener("click", this._handleLike);
+    this._likeBtn.addEventListener("click", () => {
+      this._handleHeartIconClick(this);
+    });
 
-    this._trashIcon.addEventListener("click", this._handleRemove);
+    this._trashIcon.addEventListener("click", () => {
+      this._handleTrashIconClick(this); //this represents the instance of the Card
+    });
     this._cardElementImage.addEventListener("click", (e) => {
       this._handleImageClick(this._data.name, this._data.url);
     });

@@ -1,11 +1,12 @@
 import PopupWithForm from "../components/PopupWithForm.js";
-import Card from "../components/card.js";
+import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import "./index.css";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import API from "../components/API.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 /* const initialCards = [
   {
     name: "Yosemite Valley",
@@ -80,9 +81,15 @@ function openModal(modal) {
 //   userOne.setUserInfo(nameInputField.value, descriptionInputField.value);
 //   profilePopUp.close();
 //   editModalValidator.toggleButtonState();
-// });
+// });deleteCardConfirmation.close();
 function createCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleImageClick);
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleImageClick,
+    handleTrashIconClick,
+    handleHeartIconClick
+  );
   const cardElement = card.getCardElement();
   return cardElement;
 }
@@ -220,7 +227,7 @@ function handleAddCardSubmit(inputElsObj) {
 
   //const cardEl = createCard({ name, link }); //{name: name, link: link}
   firstAPI.postNewCard(name, link).then((data) => {
-    const cardEl = createCard(data.name, data.link);
+    const cardEl = createCard({ name: data.name, link: data.link });
     console.log(cardEl);
     cardElements.addItem(cardEl);
   });
@@ -271,3 +278,54 @@ firstAPI
 /* initialCards.forEach(function (data) {
   firstAPI.postInitialCards(data.name, data.link);
 }); */
+
+let deleteCardConfirmation = new PopupWithConfirmation({
+  popUpSelector: "#deletecard-confirmation-modal",
+  handleFormSubmit: handleDeleteConfirmationSubmit,
+});
+
+//this runs when we click 'yes' on the delete-confirm modal
+function handleDeleteConfirmationSubmit(card) {
+  firstAPI.deleteCard(card.id).then(() => {
+    // delete card from dom
+    card.handleRemove();
+    deleteCardConfirmation.close();
+  });
+}
+
+//this runs when we click on heart
+function handleHeartIconClick(card) {
+  if (card.isLiked) {
+    firstAPI.handleLike(card.id).then(() => {
+      card.handleLike();
+      card.isLiked = false;
+    });
+  } else {
+    firstAPI.handleUnlike(card.id).then(() => {
+      card.isLiked = true;
+      card.handleLike();
+    });
+  }
+  /*   if (!card.isLiked) {
+    firstAPI.handleLike(card.id).then(() => {
+      // delete card from dom
+      card.handleLike();
+      console.log(card);
+    });
+  } */
+}
+
+deleteCardConfirmation.setEventListeners();
+
+// trashIcon.addEventListener("click", function (e) {
+//   e.preventDefault();
+//   deleteCardConfirmation.open();
+// });
+
+//this runs when we click a card's trash icon
+function handleTrashIconClick(card) {
+  deleteCardConfirmation.open();
+  deleteCardConfirmation.setSubmitHandler(() =>
+    handleDeleteConfirmationSubmit(card)
+  );
+}
