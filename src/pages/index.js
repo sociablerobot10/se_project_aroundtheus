@@ -295,6 +295,7 @@ function handleDeleteConfirmationSubmit(card) {
 
 //this runs when we click on heart
 function handleHeartIconClick(card) {
+  debugger;
   if (card.isLiked) {
     firstAPI.handleLike(card.id).then(() => {
       card.handleLike();
