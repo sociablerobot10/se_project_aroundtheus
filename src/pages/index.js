@@ -227,7 +227,9 @@ function handleAddCardSubmit(inputElsObj) {
 
   //const cardEl = createCard({ name, link }); //{name: name, link: link}
   firstAPI.postNewCard(name, link).then((data) => {
-    const cardEl = createCard({ name: data.name, link: data.link });
+    debugger;
+    console.log(data);
+    const cardEl = createCard(data);
     console.log(cardEl);
     cardElements.addItem(cardEl);
   });
