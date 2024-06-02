@@ -240,7 +240,22 @@ const profilePopUp = new PopupWithForm({
   popUpSelector: "#edit-modal",
   handleFormSubmit: handleProfileSubmit,
 });
+debugger;
+const profileImagePopUp = new PopupWithForm({
+  popUpSelector: "#bio-image-modal",
+  handleFormSubmit: handleImageProfileSubmit,
+});
+
+profileImagePopUp.setEventListeners();
 profilePopUp.setEventListeners();
+
+function handleImageProfileSubmit() {}
+
+const bioContainer = document.querySelector(".bio__container");
+bioContainer.addEventListener("click", () => {
+  profileImagePopUp.open();
+});
+
 const addPopUp = new PopupWithForm({
   popUpSelector: "#add-modal",
   handleFormSubmit: handleAddCardSubmit,
