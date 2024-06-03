@@ -230,15 +230,13 @@ function handleAddCardSubmit(inputElsObj) {
 
   //const cardEl = createCard({ name, link }); //{name: name, link: link}
   firstAPI.postNewCard(name, link).then((data) => {
-    debugger;
-    console.log(data);
     const cardEl = createCard(data);
-    console.log(cardEl);
     cardElements.addItem(cardEl);
   });
   console.log(name, link);
   //cardElements.addItem(cardEl);
 }
+
 const profilePopUp = new PopupWithForm({
   popUpSelector: "#edit-modal",
   handleFormSubmit: handleProfileSubmit,
@@ -253,8 +251,9 @@ profileImagePopUp.setEventListeners();
 profilePopUp.setEventListeners();
 
 function handleImageProfileSubmit(inputValues) {
-  console.log("IT WORKED", inputValues);
-  firstAPI.handleBioImageChange(inputValues["img-link"]);
+  firstAPI.handleBioImageChange(inputValues["img-link"]).then(() => {
+    document.querySelector(".bio__image").src = inputValues["img-link"];
+  });
 }
 
 const bioContainer = document.querySelector(".bio__container");
@@ -293,6 +292,8 @@ firstAPI
     alert(err, "Could not get initial cards!");
   });
 
+  firstAPI.getUserInfo()
+  .then
 /*initialCards.forEach(function (data) {
   let cardEl = createCard(data);
   cardList.append(cardEl);

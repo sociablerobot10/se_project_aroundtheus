@@ -15,6 +15,17 @@ class API {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
   handleLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       headers: this._headers,
@@ -39,12 +50,12 @@ class API {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
-  handleBioImageChange(avatar) {
-    return fetch(`${this._baseUrl}/users/me/${avatar}`, {
+  handleBioImageChange(imageLink) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
       method: "PATCH",
       body: JSON.stringify({
-        avatar,
+        avatar: imageLink,
       }),
     }).then((res) => {
       if (res.ok) {
