@@ -39,6 +39,7 @@ const cardTemplate =
 const editModalElement = document.querySelector("#edit-modal");
 const addModalElement = document.querySelector("#add-modal");
 const imageModalElement = document.querySelector("#image-modal");
+const bioImageModalElement = document.querySelector("#bio-image-modal");
 const editProfileButton = document.querySelector(".bio__edit-button");
 const addProfileButton = document.querySelector(".bio__add-button");
 const nameInputField = document.querySelector(".modal__input-name");
@@ -211,7 +212,9 @@ const options = {
 };
 const editModalValidator = new FormValidator(config, editModalElement);
 const addModalValidator = new FormValidator(config, addModalElement);
+const editBioModalValidator = new FormValidator(config, bioImageModalElement);
 
+editBioModalValidator.enableValidation();
 editModalValidator.enableValidation();
 addModalValidator.enableValidation();
 
@@ -240,7 +243,7 @@ const profilePopUp = new PopupWithForm({
   popUpSelector: "#edit-modal",
   handleFormSubmit: handleProfileSubmit,
 });
-debugger;
+
 const profileImagePopUp = new PopupWithForm({
   popUpSelector: "#bio-image-modal",
   handleFormSubmit: handleImageProfileSubmit,
@@ -249,7 +252,10 @@ const profileImagePopUp = new PopupWithForm({
 profileImagePopUp.setEventListeners();
 profilePopUp.setEventListeners();
 
-function handleImageProfileSubmit() {}
+function handleImageProfileSubmit(inputValues) {
+  console.log("IT WORKED", inputValues);
+  firstAPI.handleBioImageChange(inputValues["img-link"]);
+}
 
 const bioContainer = document.querySelector(".bio__container");
 bioContainer.addEventListener("click", () => {
@@ -312,7 +318,6 @@ function handleDeleteConfirmationSubmit(card) {
 
 //this runs when we click on heart
 function handleHeartIconClick(card) {
-  debugger;
   if (card.isLiked) {
     firstAPI.handleLike(card.id).then(() => {
       card.handleLike();

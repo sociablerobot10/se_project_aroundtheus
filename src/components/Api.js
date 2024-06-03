@@ -39,6 +39,21 @@ class API {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+  handleBioImageChange(avatar) {
+    return fetch(`${this._baseUrl}/users/me/${avatar}`, {
+      headers: this._headers,
+      method: "PATCH",
+      body: JSON.stringify({
+        avatar,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
