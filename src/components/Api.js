@@ -26,6 +26,23 @@ class API {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  handleBioDescriptionChange(aboutDescription, userName) {
+    return fetch(`${this._baseUrl}/users/me/`, {
+      headers: this._headers,
+      method: "PATCH",
+      body: JSON.stringify({
+        about: aboutDescription,
+        name: userName,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
   handleLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       headers: this._headers,

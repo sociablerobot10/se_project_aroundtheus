@@ -57,32 +57,7 @@ const editFormElement = editModalElement.querySelector(".modal__form");
 const addFormElement = addModalElement.querySelector(".modal__form");
 const imageCloseButton = imageModalElement.querySelector(".modal__close");
 const openedPopUp = "";
-/* function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("click", closeWithClick);
-  document.removeEventListener("keydown", closeWithEscapeKey);
-}
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", closeWithEscapeKey);
-  document.addEventListener("click", closeWithClick);
-} */
-/*formElement.addEventListener("submit", function (e) {
-  e.preventDefault();
-  bioNameField.innerText = nameInputField.value;
-  bioDescriptionField.innerText = descriptionInputField.value;
-  closeModal();
-}); */
-// editFormElement.addEventListener("submit", function (e) {
-//   e.preventDefault();
-//   /*   bioNameField.innerText = nameInputField.value;
-//   bioDescriptionField.innerText = descriptionInputField.value; */
-
-//   userOne.setUserInfo(nameInputField.value, descriptionInputField.value);
-//   profilePopUp.close();
-//   editModalValidator.toggleButtonState();
-// });deleteCardConfirmation.close();
 function createCard(cardData) {
   const card = new Card(
     cardData,
@@ -122,36 +97,7 @@ editProfileButton.addEventListener("click", function () {
   profilePopUp.setInputValues(userInfo);
   profilePopUp.open();
 });
-const userOne = new UserInfo(".bio__name", ".bio__description");
-
-// function createCard(data) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardElementTitle = cardElement.querySelector(".card__location");
-//   const cardElementImage = cardElement.querySelector(".card__image");
-//   cardElementImage.src = data.link;
-//   cardElementImage.alt = data.name;
-//   cardElementTitle.textContent = data.name;
-//   const likeBtn = cardElement.querySelector(".card__heart-icon");
-//   const trashIcon = cardElement.querySelector(".card__trash-icon");
-//   likeBtn.addEventListener("click", () => {
-//     likeBtn.classList.toggle("card__heart-icon_active");
-//   });
-//   trashIcon.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     const currentTrashIcon = e.target;
-//     currentTrashIcon.closest(".card").remove();
-//   });
-
-//   const fullCard = imageModalElement.querySelector(".modal__full-img");
-//   const cardLocation = imageModalElement.querySelector(".modal__location");
-//   cardElementImage.addEventListener("click", (e) => {
-//     openModal(imageModalElement);
-//     fullCard.src = e.target.src;
-//     cardLocation.innerText = e.target.alt;
-//     fullCard.alt = e.target.alt;
-//   });
-//   return cardElement;
-// }
+const userOne = new UserInfo(".bio__name", ".bio__description", ".bio__image");
 
 function handleImageClick(name, link) {
   imagePopUp.open(name, link);
@@ -221,13 +167,17 @@ addModalValidator.enableValidation();
 function handleProfileSubmit(inputElsObj) {
   const inputKey = inputElsObj["title"];
   const inputValue = inputElsObj["description"];
-
-  userOne.setUserInfo(inputKey, inputValue);
+  let btn = editModalElement.querySelector(".modal__button");
+  btn.textContent = "Saving";
+  firstAPI.handleBioDescriptionChange(inputKey, inputValue).then((data) => {
+    userOne.setUserInfo(inputKey, inputValue);
+  });
 }
 function handleAddCardSubmit(inputElsObj) {
   const name = inputElsObj["title"];
   const link = inputElsObj["img-link"];
-
+  let btn = addModalElement.querySelector(".modal__button");
+  btn.textContent = "Saving";
   //const cardEl = createCard({ name, link }); //{name: name, link: link}
   firstAPI.postNewCard(name, link).then((data) => {
     const cardEl = createCard(data);
@@ -292,16 +242,10 @@ firstAPI
     alert(err, "Could not get initial cards!");
   });
 
-  firstAPI.getUserInfo()
-  .then
-/*initialCards.forEach(function (data) {
-  let cardEl = createCard(data);
-  cardList.append(cardEl);
-});*/
-
-/* initialCards.forEach(function (data) {
-  firstAPI.postInitialCards(data.name, data.link);
-}); */
+firstAPI.getUserInfo().then((data) => {
+  console.log(data);
+  userOne.setUserInfo(data.about, data.name, data.avatar);
+});
 
 let deleteCardConfirmation = new PopupWithConfirmation({
   popUpSelector: "#deletecard-confirmation-modal",
