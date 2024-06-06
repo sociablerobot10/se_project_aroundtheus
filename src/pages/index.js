@@ -179,12 +179,15 @@ function handleAddCardSubmit(inputElsObj) {
   let btn = addModalElement.querySelector(".modal__button");
   btn.textContent = "Saving";
   //const cardEl = createCard({ name, link }); //{name: name, link: link}
-  firstAPI.postNewCard(name, link).then((data) => {
-    const cardEl = createCard(data);
-    cardElements.addItem(cardEl);
-  });
-  console.log(name, link);
-  //cardElements.addItem(cardEl);
+  firstAPI
+    .postNewCard(name, link)
+    .then((data) => {
+      const cardEl = createCard(data);
+      cardElements.addItem(cardEl);
+    })
+    .catch((err) => {
+      console.error(err, "Could not add card!");
+    });
 }
 
 const profilePopUp = new PopupWithForm({
@@ -231,7 +234,7 @@ const cardElements = new Section(
   ".cards__list"
 );
 
-firstAPI
+/* firstAPI
   .getInitialCards()
   .then((cards) => {
     cardElements.setItems(cards);
@@ -246,6 +249,21 @@ firstAPI.getUserInfo().then((data) => {
   console.log(data);
   userOne.setUserInfo(data.about, data.name, data.avatar);
 });
+ */
+firstAPI
+  .getCardsAndUserInfo()
+  .then(([userInfo, cards]) => {
+    // console.log(data);
+    // console.log("userinfo", data[0]);
+    // console.log("cards", data[1]);
+    //console.log({ userInfo, cards });
+    cardElements.setItems(cards);
+    cardElements.renderItems();
+    userOne.setUserInfo(userInfo.about, userInfo.name, userInfo.avatar);
+  })
+  .catch((err) => {
+    console.error(err, "Could not get user info and card info");
+  });
 
 let deleteCardConfirmation = new PopupWithConfirmation({
   popUpSelector: "#deletecard-confirmation-modal",
@@ -254,25 +272,40 @@ let deleteCardConfirmation = new PopupWithConfirmation({
 
 //this runs when we click 'yes' on the delete-confirm modal
 function handleDeleteConfirmationSubmit(card) {
-  firstAPI.deleteCard(card.id).then(() => {
-    // delete card from dom
-    card.handleRemove();
-    deleteCardConfirmation.close();
-  });
+  firstAPI
+    .deleteCard(card.id)
+    .then(() => {
+      // delete card from dom
+      card.handleRemove();
+      deleteCardConfirmation.close();
+    })
+    .catch((err) => {
+      console.error(err, "Could not delete card!");
+    });
 }
 
 //this runs when we click on heart
 function handleHeartIconClick(card) {
   if (card.isLiked) {
-    firstAPI.handleLike(card.id).then(() => {
-      card.handleLike();
-      card.isLiked = false;
-    });
+    firstAPI
+      .handleLike(card.id)
+      .then(() => {
+        card.handleLike();
+        card.isLiked = false;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   } else {
-    firstAPI.handleUnlike(card.id).then(() => {
-      card.isLiked = true;
-      card.handleLike();
-    });
+    firstAPI
+      .handleUnlike(card.id)
+      .then(() => {
+        card.isLiked = true;
+        card.handleLike();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
   /*   if (!card.isLiked) {
     firstAPI.handleLike(card.id).then(() => {

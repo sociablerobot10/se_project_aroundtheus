@@ -112,6 +112,9 @@ class API {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+  getCardsAndUserInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
+  }
 }
 
 export default API;

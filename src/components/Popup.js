@@ -43,6 +43,9 @@ export default class Popup {
     this._closeButton.addEventListener("click", () => {
       this.close();
     });
+    this._popElement.addEventListener("click", () => {
+      this.open();
+    });
     // this._closeButton.addEventListener("click", function () {
 
     //   addModalValidator.toggleButtonState();
