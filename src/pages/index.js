@@ -167,46 +167,70 @@ addModalValidator.enableValidation();
 function handleProfileSubmit(inputElsObj) {
   const inputKey = inputElsObj["title"];
   const inputValue = inputElsObj["description"];
-  let btn = editModalElement.querySelector(".modal__button");
-  btn.textContent = "Saving";
-  firstAPI.handleBioDescriptionChange(inputKey, inputValue).then((data) => {
-    userOne.setUserInfo(inputKey, inputValue);
-  });
+  profilePopUp.showLoading();
+  firstAPI
+    .handleBioDescriptionChange(inputKey, inputValue)
+    .then((data) => {
+      userOne.setUserInfo(inputKey, inputValue);
+    })
+    .catch((err) => {
+      console.error(err, "Could not add card!");
+    })
+    .finally(() => {
+      profilePopUp.hideLoading();
+      profilePopUp.close();
+    });
 }
 function handleAddCardSubmit(inputElsObj) {
   const name = inputElsObj["title"];
   const link = inputElsObj["img-link"];
-  let btn = addModalElement.querySelector(".modal__button");
-  btn.textContent = "Saving";
+  const btn = addModalElement.querySelector(".modal__button");
+
   //const cardEl = createCard({ name, link }); //{name: name, link: link}
   firstAPI
     .postNewCard(name, link)
     .then((data) => {
       const cardEl = createCard(data);
       cardElements.addItem(cardEl);
+      addPopUp.close();
     })
     .catch((err) => {
       console.error(err, "Could not add card!");
     });
 }
 
+//const btn = editModalElement.querySelector(".modal__button");
+
+//btn.textContent = "Saving";
 const profilePopUp = new PopupWithForm({
   popUpSelector: "#edit-modal",
   handleFormSubmit: handleProfileSubmit,
+  loadingButtonText: "Saving",
 });
 
 const profileImagePopUp = new PopupWithForm({
   popUpSelector: "#bio-image-modal",
   handleFormSubmit: handleImageProfileSubmit,
+  loadingButtonText: "Saving",
 });
 
 profileImagePopUp.setEventListeners();
 profilePopUp.setEventListeners();
 
 function handleImageProfileSubmit(inputValues) {
-  firstAPI.handleBioImageChange(inputValues["img-link"]).then(() => {
-    document.querySelector(".bio__image").src = inputValues["img-link"];
-  });
+  profileImagePopUp.showLoading();
+  firstAPI
+    .handleBioImageChange(inputValues["img-link"])
+    .then(() => {
+      userOne.setAvatar(inputValues["img-link"]);
+    })
+    .catch((err) => {
+      console.error(err, "Could not add card!");
+    })
+    .finally(() => {
+      profileImagePopUp.hideLoading();
+      profileImagePopUp.close();
+    });
 }
 
 const bioContainer = document.querySelector(".bio__container");
@@ -217,6 +241,7 @@ bioContainer.addEventListener("click", () => {
 const addPopUp = new PopupWithForm({
   popUpSelector: "#add-modal",
   handleFormSubmit: handleAddCardSubmit,
+  loadingButtonText: "Saving",
 });
 addPopUp.setEventListeners();
 
@@ -265,7 +290,7 @@ firstAPI
     console.error(err, "Could not get user info and card info");
   });
 
-let deleteCardConfirmation = new PopupWithConfirmation({
+const deleteCardConfirmation = new PopupWithConfirmation({
   popUpSelector: "#deletecard-confirmation-modal",
   handleFormSubmit: handleDeleteConfirmationSubmit,
 });
@@ -276,7 +301,7 @@ function handleDeleteConfirmationSubmit(card) {
     .deleteCard(card.id)
     .then(() => {
       // delete card from dom
-      card.handleRemove();
+      card.deleteCard();
       deleteCardConfirmation.close();
     })
     .catch((err) => {
@@ -285,7 +310,7 @@ function handleDeleteConfirmationSubmit(card) {
 }
 
 //this runs when we click on heart
-function handleHeartIconClick(card) {
+/* function handleHeartIconClick(card) {
   if (card.isLiked) {
     firstAPI
       .handleLike(card.id)
@@ -306,14 +331,44 @@ function handleHeartIconClick(card) {
       .catch((err) => {
         console.error(err);
       });
-  }
-  /*   if (!card.isLiked) {
+  } */
+/*   if (!card.isLiked) {
     firstAPI.handleLike(card.id).then(() => {
       // delete card from dom
       card.handleLike();
       console.log(card);
     });
   } */
+function handleHeartIconClick(cardData) {
+  if (!cardData.isLiked) {
+    firstAPI
+      .handleLike(cardData.id)
+      .then((data) => {
+        console.log(data);
+        if (data.isLiked) {
+          debugger;
+          cardData.isLiked = true;
+          cardData.handleLike(data.isLiked);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } else {
+    firstAPI
+      .handleUnlike(cardData.id)
+      .then((data) => {
+        console.log(data);
+        if (!data.isLiked) {
+          debugger;
+          cardData.isLiked = false;
+          cardData.handleDislike(data.isLiked);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }
 
 deleteCardConfirmation.setEventListeners();

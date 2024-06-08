@@ -16,14 +16,35 @@ export default class Card {
     this._handleHeartIconClick = handleHeartIconClick;
   }
 
-  handleRemove() {
+  deleteCard() {
     this._cardElement.remove();
   }
-  handleLike(e) {
-    console.log(this._cardElement);
-    this._cardElement
-      .querySelector(".card__heart-icon")
-      .classList.toggle("card__heart-icon_active");
+  renderLikes() {
+    if (this.isLiked) {
+      this._cardElement
+        .querySelector(".card__heart-icon")
+        .classList.add("card__heart-icon_active");
+    } else {
+      this._cardElement
+        .querySelector(".card__heart-icon")
+        .classList.remove("card__heart-icon_active");
+    }
+  }
+  handleLike(apiData) {
+    if (apiData) {
+      this._data.isLiked = true;
+      this._cardElement
+        .querySelector(".card__heart-icon")
+        .classList.add("card__heart-icon_active");
+    }
+  }
+  handleDislike(apiData) {
+    if (!apiData) {
+      this._data.isLiked = true;
+      this._cardElement
+        .querySelector(".card__heart-icon")
+        .classList.remove("card__heart-icon_active");
+    }
   }
 
   _setEventListeners() {
@@ -38,7 +59,8 @@ export default class Card {
       this._handleTrashIconClick(this); //this represents the instance of the Card
     });
     this._cardElementImage.addEventListener("click", (e) => {
-      this._handleImageClick(this._data.name, this._data.url);
+      console.log(this._data);
+      this._handleImageClick(this._data.name, this._data.link);
     });
   }
 
@@ -54,6 +76,7 @@ export default class Card {
     this._fullCard = this._imageModalElement.querySelector(".modal__full-img");
     this._cardLocation =
       this._imageModalElement.querySelector(".modal__location");
+    this.renderLikes();
     this._setEventListeners();
     /*this._cardElementImage.addEventListener("click", (e) => {
       openModal(this._imageModalElement);

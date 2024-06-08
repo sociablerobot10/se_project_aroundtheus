@@ -52,7 +52,7 @@
   margin-bottom: 3px;
 }
 
-#bio-image-modal .modal__container {
+.modal_bio-image-container {
   width: 430px;
   height: 272px;
 }
