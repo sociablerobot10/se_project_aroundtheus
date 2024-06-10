@@ -19,7 +19,7 @@ export default class Card {
   deleteCard() {
     this._cardElement.remove();
   }
-  renderLikes() {
+  _renderLikes() {
     if (this.isLiked) {
       this._cardElement
         .querySelector(".card__heart-icon")
@@ -30,17 +30,17 @@ export default class Card {
         .classList.remove("card__heart-icon_active");
     }
   }
-  handleLike(apiData) {
-    if (apiData) {
-      this._data.isLiked = true;
+  setIsLiked(isLiked) {
+    if (isLiked) {
+      this._isLiked = isLiked;
       this._cardElement
         .querySelector(".card__heart-icon")
         .classList.add("card__heart-icon_active");
     }
   }
-  handleDislike(apiData) {
-    if (!apiData) {
-      this._data.isLiked = true;
+  setIsDisLiked(isLiked) {
+    if (!isLiked) {
+      this._isLiked = isLiked;
       this._cardElement
         .querySelector(".card__heart-icon")
         .classList.remove("card__heart-icon_active");
@@ -76,7 +76,7 @@ export default class Card {
     this._fullCard = this._imageModalElement.querySelector(".modal__full-img");
     this._cardLocation =
       this._imageModalElement.querySelector(".modal__location");
-    this.renderLikes();
+    this._renderLikes();
     this._setEventListeners();
     /*this._cardElementImage.addEventListener("click", (e) => {
       openModal(this._imageModalElement);

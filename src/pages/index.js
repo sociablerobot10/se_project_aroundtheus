@@ -172,13 +172,13 @@ function handleProfileSubmit(inputElsObj) {
     .handleBioDescriptionChange(inputKey, inputValue)
     .then((data) => {
       userOne.setUserInfo(inputKey, inputValue);
+      profilePopUp.close();
     })
     .catch((err) => {
       console.error(err, "Could not add card!");
     })
     .finally(() => {
       profilePopUp.hideLoading();
-      profilePopUp.close();
     });
 }
 function handleAddCardSubmit(inputElsObj) {
@@ -187,6 +187,7 @@ function handleAddCardSubmit(inputElsObj) {
   const btn = addModalElement.querySelector(".modal__button");
 
   //const cardEl = createCard({ name, link }); //{name: name, link: link}
+  addPopUp.showLoading();
   firstAPI
     .postNewCard(name, link)
     .then((data) => {
@@ -196,6 +197,9 @@ function handleAddCardSubmit(inputElsObj) {
     })
     .catch((err) => {
       console.error(err, "Could not add card!");
+    })
+    .finally(() => {
+      addPopUp.hideLoading();
     });
 }
 
@@ -223,13 +227,13 @@ function handleImageProfileSubmit(inputValues) {
     .handleBioImageChange(inputValues["img-link"])
     .then(() => {
       userOne.setAvatar(inputValues["img-link"]);
+      profileImagePopUp.close();
     })
     .catch((err) => {
       console.error(err, "Could not add card!");
     })
     .finally(() => {
       profileImagePopUp.hideLoading();
-      profileImagePopUp.close();
     });
 }
 
@@ -293,10 +297,12 @@ firstAPI
 const deleteCardConfirmation = new PopupWithConfirmation({
   popUpSelector: "#deletecard-confirmation-modal",
   handleFormSubmit: handleDeleteConfirmationSubmit,
+  loadingButtonText: "Saving",
 });
 
 //this runs when we click 'yes' on the delete-confirm modal
 function handleDeleteConfirmationSubmit(card) {
+  deleteCardConfirmation.showLoading();
   firstAPI
     .deleteCard(card.id)
     .then(() => {
@@ -306,6 +312,9 @@ function handleDeleteConfirmationSubmit(card) {
     })
     .catch((err) => {
       console.error(err, "Could not delete card!");
+    })
+    .finally(() => {
+      deleteCardConfirmation.hideLoading();
     });
 }
 
@@ -345,11 +354,7 @@ function handleHeartIconClick(cardData) {
       .handleLike(cardData.id)
       .then((data) => {
         console.log(data);
-        if (data.isLiked) {
-          debugger;
-          cardData.isLiked = true;
-          cardData.handleLike(data.isLiked);
-        }
+        cardData.setIsLiked(data.isLiked);
       })
       .catch((err) => {
         console.error(err);
@@ -359,11 +364,7 @@ function handleHeartIconClick(cardData) {
       .handleUnlike(cardData.id)
       .then((data) => {
         console.log(data);
-        if (!data.isLiked) {
-          debugger;
-          cardData.isLiked = false;
-          cardData.handleDislike(data.isLiked);
-        }
+        cardData.setIsDisLiked(data.isLiked);
       })
       .catch((err) => {
         console.error(err);
