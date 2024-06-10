@@ -31,22 +31,9 @@ export default class Card {
     }
   }
   setIsLiked(isLiked) {
-    if (isLiked) {
-      this._isLiked = isLiked;
-      this._cardElement
-        .querySelector(".card__heart-icon")
-        .classList.add("card__heart-icon_active");
-    }
+    this.isLiked = isLiked;
+    this._renderLikes();
   }
-  setIsDisLiked(isLiked) {
-    if (!isLiked) {
-      this._isLiked = isLiked;
-      this._cardElement
-        .querySelector(".card__heart-icon")
-        .classList.remove("card__heart-icon_active");
-    }
-  }
-
   _setEventListeners() {
     this._likeBtn = this._cardElement.querySelector(".card__heart-icon");
 

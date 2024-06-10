@@ -364,7 +364,7 @@ function handleHeartIconClick(cardData) {
       .handleUnlike(cardData.id)
       .then((data) => {
         console.log(data);
-        cardData.setIsDisLiked(data.isLiked);
+        cardData.setIsLiked(data.isLiked);
       })
       .catch((err) => {
         console.error(err);
