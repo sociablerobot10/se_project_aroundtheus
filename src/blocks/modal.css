@@ -52,6 +52,23 @@
   margin-bottom: 3px;
 }
 
+.modal_bio-image-container {
+  width: 430px;
+  height: 272px;
+}
+#deletecard-confirmation-modal .modal__container {
+  width: 430px;
+  height: 181px;
+  padding-bottom: 36px;
+}
+#deletecard-confirmation-modal h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-right: 36px;
+}
+#deletecard-confirmation-modal .modal__button {
+  margin-bottom: 36px;
+}
 .modal__input {
   border-top: none;
   border-right: none;

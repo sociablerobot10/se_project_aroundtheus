@@ -10,6 +10,19 @@
   flex-shrink: 0;
   border-radius: 50%;
 }
+.bio__container {
+  display: flex;
+  width: 120px;
+  height: 120px;
+  opacity: 0;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+.bio__container:hover {
+  opacity: 0.6;
+  background-color: black;
+}
 
 .bio__name {
   color: #fff;

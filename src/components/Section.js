@@ -9,13 +9,15 @@ It has a public method named addItem() that takes a DOM element and adds it to t
 
 export default class Section {
   constructor({ items, renderer }, containerSelector) {
-    this._items = items;
+    this.items = items;
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
+  setItems(items) {
+    this.items = items;
+  }
   renderItems() {
-    this._items.forEach((item) => {
-      console.log("hello");
+    this.items.forEach((item) => {
       this._renderer(item);
     });
   }

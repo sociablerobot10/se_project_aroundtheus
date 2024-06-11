@@ -25,9 +25,16 @@
             src="<%=require('./images/jacques-cousteau.png')%>"
             class="bio__image"
           />
+          <div class="bio__container">
+            <img
+              alt="image of Jacques Cousteau"
+              src="<%=require('./images/bio-pencil.png')%>"
+              class="bio__edit-pencil-button"
+            />
+          </div>
           <div class="bio__info">
-            <h1 class="bio__name">Jacques Cousteau</h1>
-            <p class="bio__description">Explorer</p>
+            <h1 class="bio__name"></h1>
+            <p class="bio__description"></p>
             <button type="button" class="bio__edit-button"></button>
           </div>
           <button type="button" class="bio__add-button"></button>
@@ -72,6 +79,7 @@
         </form>
       </div>
     </div>
+
     <div id="add-modal" class="modal">
       <div class="modal__container">
         <button class="modal__close"></button>
@@ -108,6 +116,43 @@
         </form>
       </div>
     </div>
+
+    <div id="deletecard-confirmation-modal" class="modal">
+      <div class="modal__container">
+        <button class="modal__close"></button>
+        <h3 class="modal__heading">Are you sure?</h3>
+        <form class="modal__form">
+          <button type="submit" class="modal__button">Yes</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="bio-image-modal" class="modal">
+      <div class="modal__container modal_bio-image-container">
+        <button class="modal__close"></button>
+        <h3 class="modal__heading">Change profile picture</h3>
+        <form class="modal__form">
+          <input
+            required
+            type="url"
+            id="link"
+            class="modal__input modal__input-link"
+            placeholder="Image Link"
+            name="img-link"
+            type="text"
+          />
+          <span class="modal__error" id="link-error"></span>
+          <button
+            disabled="true"
+            type="submit"
+            class="modal__button modal__button_disabled"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
     <div id="image-modal" class="modal">
       <div class="modal__container modal__container_type_image">
         <img alt="" class="modal__full-img" src="" />

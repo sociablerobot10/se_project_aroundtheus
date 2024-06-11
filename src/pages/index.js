@@ -1,11 +1,13 @@
 import PopupWithForm from "../components/PopupWithForm.js";
-import Card from "../components/card.js";
+import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import "./index.css";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-const initialCards = [
+import API from "../components/API.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+/* const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -31,12 +33,13 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
-
+ */
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const editModalElement = document.querySelector("#edit-modal");
 const addModalElement = document.querySelector("#add-modal");
 const imageModalElement = document.querySelector("#image-modal");
+const bioImageModalElement = document.querySelector("#bio-image-modal");
 const editProfileButton = document.querySelector(".bio__edit-button");
 const addProfileButton = document.querySelector(".bio__add-button");
 const nameInputField = document.querySelector(".modal__input-name");
@@ -54,34 +57,15 @@ const editFormElement = editModalElement.querySelector(".modal__form");
 const addFormElement = addModalElement.querySelector(".modal__form");
 const imageCloseButton = imageModalElement.querySelector(".modal__close");
 const openedPopUp = "";
-/* function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("click", closeWithClick);
-  document.removeEventListener("keydown", closeWithEscapeKey);
-}
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", closeWithEscapeKey);
-  document.addEventListener("click", closeWithClick);
-} */
-/*formElement.addEventListener("submit", function (e) {
-  e.preventDefault();
-  bioNameField.innerText = nameInputField.value;
-  bioDescriptionField.innerText = descriptionInputField.value;
-  closeModal();
-}); */
-// editFormElement.addEventListener("submit", function (e) {
-//   e.preventDefault();
-//   /*   bioNameField.innerText = nameInputField.value;
-//   bioDescriptionField.innerText = descriptionInputField.value; */
-
-//   userOne.setUserInfo(nameInputField.value, descriptionInputField.value);
-//   profilePopUp.close();
-//   editModalValidator.toggleButtonState();
-// });
 function createCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleImageClick);
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleImageClick,
+    handleTrashIconClick,
+    handleHeartIconClick
+  );
   const cardElement = card.getCardElement();
   return cardElement;
 }
@@ -113,36 +97,7 @@ editProfileButton.addEventListener("click", function () {
   profilePopUp.setInputValues(userInfo);
   profilePopUp.open();
 });
-const userOne = new UserInfo(".bio__name", ".bio__description");
-
-// function createCard(data) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardElementTitle = cardElement.querySelector(".card__location");
-//   const cardElementImage = cardElement.querySelector(".card__image");
-//   cardElementImage.src = data.link;
-//   cardElementImage.alt = data.name;
-//   cardElementTitle.textContent = data.name;
-//   const likeBtn = cardElement.querySelector(".card__heart-icon");
-//   const trashIcon = cardElement.querySelector(".card__trash-icon");
-//   likeBtn.addEventListener("click", () => {
-//     likeBtn.classList.toggle("card__heart-icon_active");
-//   });
-//   trashIcon.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     const currentTrashIcon = e.target;
-//     currentTrashIcon.closest(".card").remove();
-//   });
-
-//   const fullCard = imageModalElement.querySelector(".modal__full-img");
-//   const cardLocation = imageModalElement.querySelector(".modal__location");
-//   cardElementImage.addEventListener("click", (e) => {
-//     openModal(imageModalElement);
-//     fullCard.src = e.target.src;
-//     cardLocation.innerText = e.target.alt;
-//     fullCard.alt = e.target.alt;
-//   });
-//   return cardElement;
-// }
+const userOne = new UserInfo(".bio__name", ".bio__description", ".bio__image");
 
 function handleImageClick(name, link) {
   imagePopUp.open(name, link);
@@ -194,38 +149,111 @@ const config = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
+const options = {
+  baseURL: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "e13faefd-227e-472c-9a3d-b6e42316321b",
+    "Content-Type": "application/json",
+  },
+};
 const editModalValidator = new FormValidator(config, editModalElement);
 const addModalValidator = new FormValidator(config, addModalElement);
+const editBioModalValidator = new FormValidator(config, bioImageModalElement);
 
+editBioModalValidator.enableValidation();
 editModalValidator.enableValidation();
 addModalValidator.enableValidation();
 
 function handleProfileSubmit(inputElsObj) {
   const inputKey = inputElsObj["title"];
   const inputValue = inputElsObj["description"];
-
-  userOne.setUserInfo(inputKey, inputValue);
+  profilePopUp.showLoading();
+  firstAPI
+    .handleBioDescriptionChange(inputKey, inputValue)
+    .then((data) => {
+      userOne.setUserInfo(inputKey, inputValue);
+      profilePopUp.close();
+    })
+    .catch((err) => {
+      console.error(err, "Could not add card!");
+    })
+    .finally(() => {
+      profilePopUp.hideLoading();
+    });
 }
 function handleAddCardSubmit(inputElsObj) {
   const name = inputElsObj["title"];
   const link = inputElsObj["img-link"];
-  const cardEl = createCard({ name, link }); //{name: name, link: link}
-  cardElements.addItem(cardEl);
+  const btn = addModalElement.querySelector(".modal__button");
+
+  //const cardEl = createCard({ name, link }); //{name: name, link: link}
+  addPopUp.showLoading();
+  firstAPI
+    .postNewCard(name, link)
+    .then((data) => {
+      const cardEl = createCard(data);
+      cardElements.addItem(cardEl);
+      addPopUp.close();
+    })
+    .catch((err) => {
+      console.error(err, "Could not add card!");
+    })
+    .finally(() => {
+      addPopUp.hideLoading();
+    });
 }
+
+//const btn = editModalElement.querySelector(".modal__button");
+
+//btn.textContent = "Saving";
 const profilePopUp = new PopupWithForm({
   popUpSelector: "#edit-modal",
   handleFormSubmit: handleProfileSubmit,
+  loadingButtonText: "Saving",
 });
+
+const profileImagePopUp = new PopupWithForm({
+  popUpSelector: "#bio-image-modal",
+  handleFormSubmit: handleImageProfileSubmit,
+  loadingButtonText: "Saving",
+});
+
+profileImagePopUp.setEventListeners();
+profilePopUp.setEventListeners();
+
+function handleImageProfileSubmit(inputValues) {
+  profileImagePopUp.showLoading();
+  firstAPI
+    .handleBioImageChange(inputValues["img-link"])
+    .then(() => {
+      userOne.setAvatar(inputValues["img-link"]);
+      profileImagePopUp.close();
+    })
+    .catch((err) => {
+      console.error(err, "Could not add card!");
+    })
+    .finally(() => {
+      profileImagePopUp.hideLoading();
+    });
+}
+
+const bioContainer = document.querySelector(".bio__container");
+bioContainer.addEventListener("click", () => {
+  profileImagePopUp.open();
+});
+
 const addPopUp = new PopupWithForm({
   popUpSelector: "#add-modal",
   handleFormSubmit: handleAddCardSubmit,
+  loadingButtonText: "Saving",
 });
+addPopUp.setEventListeners();
 
 const imagePopUp = new PopupWithImage("#image-modal");
-
+const firstAPI = new API(options);
 const cardElements = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer(item) {
       const card = createCard(item);
       cardElements.addItem(card);
@@ -235,4 +263,127 @@ const cardElements = new Section(
   ".cards__list"
 );
 
-cardElements.renderItems();
+/* firstAPI
+  .getInitialCards()
+  .then((cards) => {
+    cardElements.setItems(cards);
+    cardElements.renderItems();
+  })
+  .catch((err) => {
+    console.error(err);
+    alert(err, "Could not get initial cards!");
+  });
+
+firstAPI.getUserInfo().then((data) => {
+  console.log(data);
+  userOne.setUserInfo(data.about, data.name, data.avatar);
+});
+ */
+firstAPI
+  .getCardsAndUserInfo()
+  .then(([userInfo, cards]) => {
+    // console.log(data);
+    // console.log("userinfo", data[0]);
+    // console.log("cards", data[1]);
+    //console.log({ userInfo, cards });
+    cardElements.setItems(cards);
+    cardElements.renderItems();
+    userOne.setUserInfo(userInfo.about, userInfo.name);
+    userOne.setAvatar(userInfo.avatar);
+  })
+  .catch((err) => {
+    console.error(err, "Could not get user info and card info");
+  });
+
+const deleteCardConfirmation = new PopupWithConfirmation({
+  popUpSelector: "#deletecard-confirmation-modal",
+  handleFormSubmit: handleDeleteConfirmationSubmit,
+  loadingButtonText: "Saving",
+});
+
+//this runs when we click 'yes' on the delete-confirm modal
+function handleDeleteConfirmationSubmit(card) {
+  deleteCardConfirmation.showLoading();
+  firstAPI
+    .deleteCard(card.id)
+    .then(() => {
+      // delete card from dom
+      card.deleteCard();
+      deleteCardConfirmation.close();
+    })
+    .catch((err) => {
+      console.error(err, "Could not delete card!");
+    })
+    .finally(() => {
+      deleteCardConfirmation.hideLoading();
+    });
+}
+
+//this runs when we click on heart
+/* function handleHeartIconClick(card) {
+  if (card.isLiked) {
+    firstAPI
+      .handleLike(card.id)
+      .then(() => {
+        card.handleLike();
+        card.isLiked = false;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } else {
+    firstAPI
+      .handleUnlike(card.id)
+      .then(() => {
+        card.isLiked = true;
+        card.handleLike();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } */
+/*   if (!card.isLiked) {
+    firstAPI.handleLike(card.id).then(() => {
+      // delete card from dom
+      card.handleLike();
+      console.log(card);
+    });
+  } */
+function handleHeartIconClick(cardData) {
+  if (!cardData.isLiked) {
+    firstAPI
+      .handleLike(cardData.id)
+      .then((data) => {
+        console.log(data);
+        cardData.setIsLiked(data.isLiked);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } else {
+    firstAPI
+      .handleUnlike(cardData.id)
+      .then((data) => {
+        console.log(data);
+        cardData.setIsLiked(data.isLiked);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+}
+
+deleteCardConfirmation.setEventListeners();
+
+// trashIcon.addEventListener("click", function (e) {
+//   e.preventDefault();
+//   deleteCardConfirmation.open();
+// });
+
+//this runs when we click a card's trash icon
+function handleTrashIconClick(card) {
+  deleteCardConfirmation.open();
+  deleteCardConfirmation.setSubmitHandler(() =>
+    handleDeleteConfirmationSubmit(card)
+  );
+}
