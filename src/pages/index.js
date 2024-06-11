@@ -288,7 +288,8 @@ firstAPI
     //console.log({ userInfo, cards });
     cardElements.setItems(cards);
     cardElements.renderItems();
-    userOne.setUserInfo(userInfo.about, userInfo.name, userInfo.avatar);
+    userOne.setUserInfo(userInfo.about, userInfo.name);
+    userOne.setAvatar(userInfo.avatar);
   })
   .catch((err) => {
     console.error(err, "Could not get user info and card info");
